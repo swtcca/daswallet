@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const NsVueTemplateCompiler = require("nativescript-vue-template-compiler");
@@ -17,8 +17,8 @@ const { NativeScriptWorkerPlugin } = require("nativescript-worker-loader/NativeS
 const shims = require('nativescript-nodeify/shims.json');
 const aliases = {};
 for (const key of Object.keys(shims)) {
-    const value = shims[key];
-    aliases[key + '$'] = value;
+        const value = shims[key];
+        aliases[key + '$'] = value;
 }
 aliases['inherits$'] = 'inherits/inherits_browser';
 // end for nativescript-nodify
@@ -143,10 +143,10 @@ module.exports = env => {
             },
             minimize: Boolean(production),
             minimizer: [
-                new UglifyJsPlugin({
+                new TerserPlugin({
                     parallel: true,
                     cache: true,
-                    uglifyOptions: {
+                    terserOptions: {
                         output: {
                             comments: false,
                         },
@@ -156,6 +156,8 @@ module.exports = env => {
                             'collapse_vars': platform !== "android",
                             sequences: platform !== "android",
                         },
+                        safari10: platform === "ios",
+                        keep_fnames: true,
                     },
                 }),
             ],
@@ -228,9 +230,9 @@ module.exports = env => {
             }]),
             // Copy assets to out dir. Add your own globs as needed.
             new CopyWebpackPlugin([
-                { from: { glob: "fonts/**" } },
-                { from: { glob: "**/*.+(jpg|png)" } },
-                { from: { glob: "assets/**/*" } },
+                { from: "fonts/**" },
+                { from: "**/*.+(jpg|png)" },
+                { from: "assets/**/*" },
             ], { ignore: [`${relative(appPath, appResourcesFullPath)}/**`] }),
             // Generate a bundle starter script and activate it in package.json
             new nsWebpack.GenerateBundleStarterPlugin([

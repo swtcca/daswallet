@@ -12,9 +12,17 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "jingtum-base-lib": "^1.0.9",
+    "nativescript-barcodescanner": "^2.7.8",
+    "nativescript-floatingactionbutton": "^5.0.0",
+    "nativescript-localize": "^3.0.6",
+    "nativescript-nodeify": "^0.8.0",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-vue": "~2.0.0",
-    "tns-core-modules": "~5.0.2"
+    "nativescript-zxing": "^1.5.7",
+    "tns-core-modules": "~5.0.2",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "~7.1.0",
