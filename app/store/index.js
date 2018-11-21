@@ -1,5 +1,6 @@
 import Vue from 'nativescript-vue'
 import Vuex from 'vuex'
+import appLock from './modules/appLock'
 import swtc from './modules/swtc'
 import qrScan from './modules/qrScan'
 import qrCode from './modules/qrCode'
@@ -11,12 +12,14 @@ let debug = process.env.NODE_ENV !== 'production'
 
 let store = new Vuex.Store({
 	modules: {
+		appLock,
 		swtc,
 		qrScan,
 		qrCode,
 		connectivity
 	},
 	state: {
+		debug: debug,
 	},
 	strict: debug,
 	created () {

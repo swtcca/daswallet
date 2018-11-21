@@ -6,6 +6,13 @@ Vue.filter("L", localize)
 import routes from '~/router'
 Vue.prototype.$routes = routes
 
+import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
+TNSFontIcon.paths = {
+  ion: './assets/ionicons.css',
+};
+TNSFontIcon.loadCss();
+Vue.filter('fonticon', fonticon);
+
 import store from '~/store'
 import Home from "./components/Home";
 
@@ -24,5 +31,10 @@ new Vue({
 		</Frame>`,
 	components: {
 		Home
+	},
+	created () {
+		console.log("app created")
+		console.log(store.getters.app_timestamp)
+		console.log(store.getters.hash_master_password)
 	}
 }).$start();
