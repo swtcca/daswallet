@@ -34,5 +34,19 @@ export default {
 	},
 	created () {
 		console.log('mixins jingtumlib created')
-	}
+	},
+	mounted () {
+		console.log('mixins jingtumlib mounted self test')
+		if (this.$store.state.debug) {
+			console.log(this.swtcWallets)
+			console.log(this.swtcWallet)
+		}
+		if (this.swtcWallets.length === 0 && !this.swtcWallet.hasOwnProperty('address')) {
+			let wallet = this.Wallet.generate()
+			wallet.display = 'automatic created wallet, can be deleted'
+			//this.swtcWallet = wallet
+			//this.swtcWallets = wallet
+			console.log(wallet)
+		} 
+	},
 }

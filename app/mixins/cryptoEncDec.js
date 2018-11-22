@@ -10,21 +10,14 @@ export default {
 		}
 	},
 	methods: {
-		encrypt () {
-			try {
-				this.crypto_encrypted = Crypto.AES.encrypt(this.crypto_content, this.crypto_password).toString()
-			} catch (exception) {
-				console.log(exception)
-				throw new Error(exception.message)
-			}
+		encrypt (message, password) {
+			return Crypto.AES.encrypt(message, password).toString()
 		},
-		decrypt() {
-			try {
-				this.crypto_content = Crypto.AES.decrypt(this.crypto_encrypted.toString(), this.crypto_password).toString(Crypto.enc.Utf8)
-			} catch (exception) {
-				console.log(exception)
-				throw new Error(exception.message);
-			}
+		decrypt(encrypted, password) {
+			return Crypto.AES.decrypt(encrypted.toString(), password).toString(Crypto.enc.Utf8)
+		},
+		hash_sha256(message) {
+			return Crypto.SHA256(message).toString()
 		}
 	},
 	created () {
@@ -36,21 +29,25 @@ export default {
 			this.crypto_password = '密码'
 			this.crypto_content = '内容'
 			console.log(`hmacsha1 = ${Crypto.HmacSHA1(this.crypto_content, this.crypto_password)}`)
-			this.encrypt()
+			console.log(this.hash_sha256('123'))
+			console.log(this.hash_sha256(this.crypto_password))
+			this.crypto_encrypted = this.encrypt(this.crypto_content, this.crypto_password)
 			console.log(`
-				this.crypto_password = '密码'
-				this.crypto_content = '内容'
-				this.encrypt()
+				this.crypto_password = ${this.crypto_password}
+				this.crypto_content = ${this.crypto_content}
+				this.crypto_encrypted = this.encrypt(this.crypto_content, this.crypto_password)
 				this.crypto_encrypted = ${this.crypto_encrypted}
 			`)
 			this.crypto_content = ''
-			this.decrypt()
+			this.crypto_content = this.decrypt(this.crypto_encrypted, this.crypto_password)
 			console.log(`
 				this.crypto_content = ''
-				this.decrypt()
+				this.crypto_content = this.decrypt(this.crypto_encrypted, this.crypto_password)
 				this.crypto_content = ${this.crypto_content}
 			`)
 			console.log(`hmacsha1 = ${Crypto.HmacSHA1(this.crypto_content, this.crypto_password)}`)
+			console.log(this.hash_sha256('123'))
+			console.log(this.hash_sha256(this.crypto_password))
 			this.crypto_password = null
 			this.crypto_content = null
 			this.crypto_encrypted = null

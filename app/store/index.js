@@ -5,6 +5,7 @@ import swtc from './modules/swtc'
 import qrScan from './modules/qrScan'
 import qrCode from './modules/qrCode'
 import connectivity from './modules/connectivity'
+import logger from './modules/logger'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ let store = new Vuex.Store({
 		swtc,
 		qrScan,
 		qrCode,
+		logger,
 		connectivity
 	},
 	state: {

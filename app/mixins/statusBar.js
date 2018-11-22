@@ -21,8 +21,8 @@ export default {
             window.setStatusBarColor(0x000000)
             decorView.setSystemUiVisibility(
               //View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-              //View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-              View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+              View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+              //View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
               //| View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
               | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
               //| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -37,7 +37,20 @@ export default {
               console.log(`statusbar height ${this.statusBarHeight}`)
             }
           }
-        }
+        },
+		hardwareBackAndroid (args) {
+          if (application.android) {
+		  	application.android.on(application.AndroidApplication.activityBackPressedEvent, (arg) => {
+				console.log("hardware back button pressed")
+				if (this.$store.getters.app_unlocked === true) {
+					console.log("logged in already")
+				} else {
+					console.log("not logged in yet")
+					arg.cancel = true
+				}
+			})
+		  }
+		}
     },
     created () {
       console.log('mixins statusBar created')

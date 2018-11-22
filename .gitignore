@@ -23,6 +23,7 @@ yarn-error.log*
 .idea
 .cloud
 .project
+**/*.swp
 tmp/
 typings/
 **/*lock.json
