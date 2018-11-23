@@ -10,13 +10,13 @@
 	    <GridLayout rows="auto,*" columns="*">
 	    	<StackLayout row="1" :visibility="password_set ? 'visible' : 'collapse'" verticalAlignment="middle">
 				<Label class="error" :visibility="!!message ? 'visible': 'collapse'" :text="message" />
-				<TextField class="password m-x-20 p-10" secure="true" autocorrect="false" maxLength="32" :hint="'enter password'" @textChange="onLoginReset" v-model="login_password" />
+				<TextField class="password m-x-20 p-10" secure="true" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="'enter password'" @textChange="onLoginReset" v-model="login_password" @returnPress="onLogin" />
 				<Button :isEnabled="enabled" class="btn btn-primary" :text="'login'" @tap="onLogin" />
 			</StackLayout>
 	    	<StackLayout row="1" :visibility="!password_set ? 'visible' : 'collapse'" verticalAlignment="middle">
 				<Label class="error" :visibility="!!message ? 'visible': 'collapse'" :text="message" />
-				<TextField class="password m-x-20 p-10" secure="true" autocorrect="false" maxLength="32" :hint="'enter password'" @focus="message=''" @textChange="onSet" v-model="password" />
-				<TextField class="password m-x-20 p-10" secure="true" autocorrect="false" maxLength="32" :hint="'enter password again'" @focus="message=''" @textChange="onSet" v-model='password2' />
+				<TextField class="password m-x-20 p-10" secure="true" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="'enter password'" @focus="message=''" @textChange="onSet" v-model="password" />
+				<TextField class="password m-x-20 p-10" secure="true" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="'enter password again'" @focus="message=''" @textChange="onSet" v-model='password2' />
 				<Button class="btn btn-primary" :isEnabled="enabled" :text="'set password'" @tap="onSetPassword" />
 			</StackLayout>
 		</GridLayout>
@@ -40,13 +40,20 @@
 		methods: {
 			onSetPassword () {
 				console.log("set pass pressed")
-				this.$store.dispatch('showToasts', 'password set')
-				this.$store.commit('setHashMasterPassword', this.hash_sha256(this.password))
-				this.$store.commit('saveHashMasterPassword')
-				this.password_set = true
-				this.password = ''
-				this.password2 = ''
-				//this.$navigateTo(this.$routes.Home, { clearHistory: true })
+				if (this.password !== this.password2) {
+					this.message = 'same password needed'
+					this.enabled = false
+				} else if (this.password.length < 4) {
+					this.message = "simple password not safe"
+					this.enabled = false
+				} else {
+					this.$store.dispatch('showToasts', 'password set')
+					this.$store.commit('setHashMasterPassword', this.hash_sha256(this.password))
+					this.$store.commit('saveHashMasterPassword')
+					this.password_set = true
+					this.password = ''
+					this.password2 = ''
+				}
 			},
 			onLogin () {
 				console.log("login")
