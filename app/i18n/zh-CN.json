@@ -1,0 +1,27 @@
+{
+	"app.name": "离线签名",
+	"settings": "设置",
+	"wallets": "钱包",
+	"buttons": {
+		"login": "登录",
+		"importWallet": "导入钱包",
+		"encryptSecret": "加密密钥",
+		"setPassword": "设置密码"
+	},
+	"hints": {
+		"enterPassword": "输入密码",
+		"enterPasswordAgain": "再次输入密码",
+		"setEncryptPassword": "输入加密密码",
+		"setEncryptPasswordAgain": "再次输入加密密码",
+		"enterSecret": "输入或者扫描密钥",
+		"nameWallet": "命名钱包"
+	},
+	"messages": {
+		"passwordDifferent": "密码不一致",
+		"passwordSimple": "简单密码不安全",
+		"passwordSet": "密码设置成功",
+		"encryptedImported": "加密并且成功导入",
+		"loginSuccess": "登录成功",
+		"loginFail": "登录失败"
+	}
+}

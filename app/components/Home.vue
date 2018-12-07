@@ -1,16 +1,16 @@
 <template>
-    <Page ref="homepage" class="page" backgroundSpanUnderStatusBar="true" @loaded="pageLoaded">
-        <ActionBar class="action-bar" flat="true" android:backgroundColor="transparent" ios:backgroundColor="rgb(13,73,127)">
-            <Label class="text-center action-bar-title" :text="'app.name'"></Label>
-        </ActionBar>
+	<Page ref="homepage" class="page" backgroundSpanUnderStatusBar="true" @loaded="pageLoaded">
+		<ActionBar class="action-bar" flat="true" android:backgroundColor="transparent" ios:backgroundColor="rgb(13,73,127)">
+			<Label class="text-center action-bar-title" :text="'app.name'|L"></Label>
+		</ActionBar>
 
-        <GridLayout rows="auto,*" columns="*">
-        	<GridLayout row="0" rows="auto,auto,auto,auto" columns="*,*,*">
+		<GridLayout rows="auto,*" columns="*">
+			<GridLayout row="0" rows="auto,auto,auto,auto" columns="*,*,*">
 				<label row="0" col="0" colSpan="3" class="m-10 hr-light blue-sep"/>
 				<Label row="1" col="0" class="big-ion text-center ion" :text="'ion-ios-settings' | fonticon" @tap="onSetPassword" />
-				<Label row="2" col="0" class="text-center" :text="'settings'" @tap="onSetPassword" />
+				<Label row="2" col="0" class="text-center" :text="'settings'|L" @tap="onSetPassword" />
 				<Label row="1" col="1" class="big-ion text-center ion" :text="'ion-md-wallet' | fonticon" @tap="onImportWallet" />
-				<Label row="2" col="1" class="text-center" :text="'wallets'" @tap="onImportWallet" />
+				<Label row="2" col="1" class="text-center" :text="'wallets'|L" @tap="onImportWallet" />
 				<Label row="1" col="2" class="big-ion text-center ion" :text="'ion-ios-build' | fonticon" @tap="onSignTransaction" />
 				<Label row="2" col="2" class="text-center" :text="'signatures'" @tap="onSignTransaction" />
 				<label row="3" col="0" colSpan="3" class="m-10 hr-light blue-sep" />
@@ -18,11 +18,11 @@
 			<GridLayout row="1" rows="*" columns="*">
 				<ScrollView width="100%">
 					<StackLayout>
-						<Label class="m-10 text-center" android:style="font-size:16" ios:style="font-size:20;"textWrap="true" :text="'SECURE'" />
-						<Label class="text-center" android:style="font-size:16" ios:style="font-size:20;"textWrap="true" :text="'device login lock\napplication lock\nlocal encryption\noffline operation\nno usb debug\nno bluetooth'" />
-						<Label class="m-10 text-center" android:style="font-size:16" ios:style="font-size:20;"textWrap="true" :text="'SUPPORT'" />
-						<Label class="text-center" android:style="font-size:16" ios:style="font-size:20;"textWrap="true" :text="'swtc\nxrp\nxlm\nether series\nbitcoin\neos'" />
-						<Label class="text-center" android:style="font-size:16" ios:style="font-size:20;"textWrap="true" :text="'device login lock\napplication lock\nlocal encryption\noffline operation\nno usb debug\nno bluetooth'" />
+						<Label class="m-10 text-center" android:style="font-size:16" ios:style="font-size:20;" textWrap="true" :text="'SECURE'" />
+						<Label class="text-center" android:style="font-size:16" ios:style="font-size:20;" textWrap="true" :text="'device login lock\napplication lock\nlocal encryption\noffline operation\nno usb debug\nno bluetooth'" />
+						<Label class="m-10 text-center" android:style="font-size:16" ios:style="font-size:20;" textWrap="true" :text="'SUPPORT'" />
+						<Label class="text-center" android:style="font-size:16" ios:style="font-size:20;" textWrap="true" :text="'swtc\nxrp\nxlm\nether series\nbitcoin\neos'" />
+						<Label class="text-center" android:style="font-size:16" ios:style="font-size:20;" textWrap="true" :text="'device login lock\napplication lock\nlocal encryption\noffline operation\nno usb debug\nno bluetooth'" />
 					</Stacklayout>
 				</ScrollView>
 				<!--
@@ -34,8 +34,8 @@
 				</Fab>
 				-->
 			</GridLayout>
-        </GridLayout>
-    </Page>
+		</GridLayout>
+	</Page>
 </template>
 
 <script>
@@ -46,22 +46,22 @@
 	import Wallets from './Wallets'
 	import Sign from './Sign'
 	import { mapGetters, mapMutations, mapActions } from "vuex";
-    export default {
+	export default {
 		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar ],
 		data () {
 			return {
 				flag_password: null,
 			}
 		},
-        computed: {
+		computed: {
 			...mapGetters(['connectionType']),
-            message() {
-                return "Blank {N}-Vue app"
-            },
+			message() {
+				return "Blank {N}-Vue app"
+			},
 			crypto_result() {
 				return this.crypto_encrypted
 			}
-        },
+		},
 		watch: {
 			connectionType (v) {
 				console.log("connection change detected")
@@ -108,15 +108,15 @@
 		mounted () {
 			console.log('mounted')
 		},
-    };
+	};
 </script>
 
 <style scoped lang="scss">
-    // Start custom common variables
-    @import '../app-variables';
-    // End custom common variables
+	// Start custom common variables
+	@import '../app-variables';
+	// End custom common variables
 
-    // Custom styles
+	// Custom styles
 	.page {
 		background: rgb(13,73,127);
 		background: linear-gradient(180deg, rgba(13,73,127,1) 0%, rgba(20,116,182,1) 12%, rgba(0,212,255,1) 82%);
@@ -125,9 +125,9 @@
 		padding-top: 24;
 		horizontal-align: center;
 	}
-    .fa {
-        color: $accent-dark;
-    }
+	.fa {
+		color: $accent-dark;
+	}
 	.big-ion {
 		font-size: 36;
 	}

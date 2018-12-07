@@ -2,6 +2,7 @@ import Vue from "nativescript-vue";
 
 import { localize } from "nativescript-localize"
 Vue.filter("L", localize)
+//Vue.filter("L", (obj) => obj)
 
 import routes from '~/router'
 Vue.prototype.$routes = routes
@@ -17,13 +18,14 @@ import store from '~/store'
 import Home from "./components/Home";
 import Login from "./components/Login";
 
-Vue.registerElement('Fab', () => require('nativescript-floatingactionbutton').Fab)
+//Vue.registerElement('Fab', () => require('nativescript-floatingactionbutton').Fab)
+Vue.registerElement("DropDown", () => require("nativescript-drop-down/drop-down").DropDown)
 
 const connectivityModule = require("tns-core-modules/connectivity")
 connectivityModule.startMonitoring(v => store.commit('setConnectionType',v))
 
 Vue.config.silent = (TNS_ENV === 'production')
-import './app.scss'
+//import './app.scss'
 
 new Vue({
 	store,

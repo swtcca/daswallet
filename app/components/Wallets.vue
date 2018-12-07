@@ -23,18 +23,18 @@
 				</Stacklayout>
 				<StackLayout row="1" :visibility="importing && !settingpassword ? 'visible' : 'collapse'" verticalAlignment="middle">
 					<Label class="error" :visibility="!!message ? 'visible': 'collapse'" :text="message" />
-					<TextField class="m-x-20 p-10" autocorrect="false" autocapitalizationType="none" maxLength="64" :hint="'enter secret'" v-model="wallet.secret" />
-					<TextField class="m-x-20 p-10" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="'name this wallet'" v-model="wallet.display" />
+					<TextField class="m-x-20 p-10" autocorrect="false" autocapitalizationType="none" maxLength="64" :hint="hint_secret" v-model="wallet.secret" />
+					<TextField class="m-x-20 p-10" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_name_wallet" v-model="wallet.display" />
 					<Button class="btn btn-primary ion" :text="'ion-md-qr-scanner' | fonticon" @tap="onScanSecret" />
-					<Button :isEnabled="wallet.secret !== '' && wallet.display !== ''" class="btn btn-primary" :text="'import wallet'" @tap="onImportWallet" />
+					<Button :isEnabled="wallet.secret !== '' && wallet.display !== ''" class="btn btn-primary" :text="button_import_wallet" @tap="onImportWallet" />
 				</StackLayout>
 				<StackLayout row="1" :visibility="importing && settingpassword ? 'visible' : 'collapse'" verticalAlignment="middle">
 					<Label class="error" :visibility="!!message ? 'visible': 'collapse'" :text="message" />
-					<TextField class="passwod m-x-20 p-10" secure="true" autocorrect="false" autocapitalizationType="none" maxLength="64" :hint="'set encrypt password'" @focus="message=''" @textChange="onSet" v-model="password" />
-					<TextField class="passwod m-x-20 p-10" secure="true" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="'set encrypt password'"  @focus="message=''" @textChange="onSet" v-model="password2" />
-					<Button :visibility="settingpassword ? 'visible' : 'collapse'"  :isEnabled="enabled" verticalAlignment="middle" class="btn btn-primary" :text="'set password'" @tap="onSetPassword" />
+					<TextField class="passwod m-x-20 p-10" secure="true" autocorrect="false" autocapitalizationType="none" maxLength="64" :hint="hint_encrypt_password" @focus="message=''" @textChange="onSet" v-model="password" />
+					<TextField class="passwod m-x-20 p-10" secure="true" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_encrypt_password_again"  @focus="message=''" @textChange="onSet" v-model="password2" />
+					<Button :isEnabled="enabled" verticalAlignment="middle" class="btn btn-primary" :text="button_encrypt_secret" @tap="onEncryptSecret" />
 				</StackLayout>
-				<Button row="2" :visibility="!importing ? 'visible' : 'collapse'" class="btn btn-primary" verticalAlignment="middle" :text="'import wallets'" @tap="importing=true" />
+				<Button row="2" :visibility="!importing ? 'visible' : 'collapse'" class="btn btn-primary" verticalAlignment="middle" :text="button_import_wallet" @tap="onImportStart" />
 			</GridLayout>
 		</Page>
 	</Frame>
@@ -43,10 +43,17 @@
 <script>
 	import jingtumBaseLib from '~/mixins/jingtumBaseLib'
 	import cryptoEncDec from '~/mixins/cryptoEncDec'
+	const localize = require("nativescript-localize")
 	export default {
 		mixins: [ jingtumBaseLib, cryptoEncDec ],
 		data () {
 			return {
+				button_import_wallet: 'buttons.importWallet',
+				button_encrypt_secret: 'buttons.encryptSecret',
+				hint_secret: 'hints.enterSecret',
+				hint_name_wallet: 'hints.enterSecretAgain',
+				hint_encrypt_password: 'hints.setEncryptPassword',
+				hint_encrypt_password_again: 'hints.setEncryptPasswordAgain',
 				importing: false,
 				settingpassword: false,
 				password: '',
@@ -56,9 +63,24 @@
 				wallet: {address: '', secret: '', display: ''}
 			}
 		},
+		created() {
+				this.button_import_wallet = localize('buttons.importWallet')
+				this.button_encrypt_secret = localize('buttons.encryptSecret')
+				this.hint_secret = localize('hints.enterSecret')
+				this.hint_name_wallet = localize('hints.nameWallet')
+				this.hint_encrypt_password = localize('hints.setEncryptPassword')
+				this.hint_encrypt_password_again = localize('hints.setEncryptPasswordAgain')
+		},
 		methods: {
 			onItemTap(event) {
 				console.log("You tapped: " + this.$store.getters.swtcWallets[event.index].address)
+			},
+			onImportStart () {
+				this.importing = true
+				this.wallet = {address: '', secret: '', display: ''}
+				this.password = ''
+				this.password2 = ''
+				this.message = ''
 			},
 			onImportWallet () {
 				console.log("import Wallet")
@@ -73,16 +95,16 @@
 				}
 
 			},
-			onSetPassword () {
+			onEncryptSecret () {
 				console.log("encrypt Wallet")
 				if (this.password !== this.password2) {
-					this.message = 'same password needed'
+					this.message = localize('messages.passwordDifferenet')
 					this.enabled = false
 				} else if (this.password.length < 4) {
-					this.message = "simple password not safe"
+					this.message = localize("messages.passwordSimple")
 					this.enabled = false
 				} else {
-					this.$store.dispatch('showToasts', 'wallet imported and encrypted')
+					this.$store.dispatch('showToasts', localize('messages.encryptedImported'))
 					this.wallet.secret_encrypted = this.encrypt(this.wallet.secret, this.password)
 					this.wallet.secret = ''
 					this.$store.commit('addSwtcWallet', this.wallet)
@@ -108,10 +130,10 @@
 			},
 			onSet () {
 				if (this.password !== this.password2) {
-					this.message = 'same password needed'
+					this.message = localize('messages.passwordDifferent')
 					this.enabled = false
 				} else if (this.password.length < 4) {
-					this.message = "simple password not safe"
+					this.message = localize("messages.passwordSimple")
 					this.enabled = false
 				} else {
 					this.message = ''
