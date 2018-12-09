@@ -1,19 +1,19 @@
 const state = {
   _toasts: require('nativescript-toasts'),
   _clipboard: require("nativescript-clipboard"),
-  _autoToast: false,
-  _autoPrompt: false,
+  _autoPrompt: true,
+  _autoFeedback: false
 }
   
 const mutations = {
-  setAutoToast: (state, v) => state._autoToast = v,
-  setAutoPrompt: (state, v) => state._autoPrompt = v,
+  setAutoFeedback: (state, v) => state._autoFeedback = v,
+  setAutoPrompt: (state, v) => state._autoPrompt = v
 }
 
 const getters = {
   toasts: (state) => state._toasts,
   autoPrompt: (state) => state._autoPrompt,
-  autoToast: (state) => state._autoToast
+  autoFeedback: (state) => state._autoFeedback
 }
 
 const actions = {

@@ -46,6 +46,13 @@
 	const localize = require("nativescript-localize")
 	export default {
 		mixins: [ jingtumBaseLib, cryptoEncDec ],
+		props: {
+			importing: {
+				type: Boolean,
+				default: false
+			}
+
+		},
 		data () {
 			return {
 				button_import_wallet: '',
@@ -54,7 +61,7 @@
 				hint_name_wallet: '',
 				hint_encrypt_password: '',
 				hint_encrypt_password_again: '',
-				importing: false,
+				//importing: false,
 				settingpassword: false,
 				password: '',
 				password2: '',

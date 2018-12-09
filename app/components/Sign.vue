@@ -13,10 +13,10 @@
 	        	<StackLayout row="1" verticalAlignment="middle">
 					<Button class="btn btn-primary" :isEnabled="enabled" :text="'Sign'" @tap="onSign" />
 					<Button class="btn btn-primary ion" :text="'ion-md-qr-scanner' | fonticon" @tap="onScanTransaction" />
-					<TextField class="m-x-10 p-x-10"  editable="false" :hint="'signed data'" v-model="signed" />
-					<TextField class="m-x-10 p-x-10"  editable="false" :hint="'signature'" v-model="signature" />
-					<TextField class="m-x-10 p-x-10" autocorrect="false" autoCapitalizationType="none" :hint="'scan tx data to sign'" v-model="tx_json" />
-					<TextField class="password m-x-10 p-x-10" autocorrect="false" autoCapitalizationType="none" :hint="'password to decrypt wallet'" v-model="password" />
+					<TextView class="m-x-20 p-10"  editable="false" :hint="'signed data'" v-model="signed" />
+					<TextView class="m-x-20 p-10"  editable="false" :hint="'signature'" v-model="signature" />
+					<TextField class="m-x-20 p-10" style="border-width:1" autocorrect="false" autoCapitalizationType="none" :hint="'scan tx data to sign'" v-model="tx_json" />
+					<TextField class="password m-x-20 p-10" style="border-width:1" autocorrect="false" autoCapitalizationType="none" :hint="'password to decrypt wallet'" v-model="password" />
 					<DropDown class="m-x-20 m-t-20" ref="dropdown" row="0" :hint="'select wallet to sign with...'" selectedIndex="0" :items="$store.getters.swtcWallets.map(w => w.address)"  @selectedIndexChanged="onSelect" />
 				</StackLayout>
 			</GridLayout>

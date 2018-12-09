@@ -19,21 +19,73 @@
 				<ScrollView height="100%">
 					<StackLayout>
 						<Button :text="'swtichLogin'" class="btn btn-primary" @tap="switchUnlocked" />
-						<Label class="m-10 text-center" android:style="font-size:16" ios:style="font-size:20;" textWrap="true" :text="'SECURE'" />
-						<Label class="text-center" android:style="font-size:16" ios:style="font-size:20;" textWrap="true" :text="'device login lock\napplication lock\nlocal encryption\noffline operation'" />
-						<Label class="m-10 text-center" android:style="font-size:16" ios:style="font-size:20;" textWrap="true" :text="'SUPPORT'" />
-						<Label class="text-center" android:style="font-size:16" ios:style="font-size:20;" textWrap="true" :text="'swtc'" />
+						<Label class="m-10 text-center t-20" textWrap="true" :text="'SECURE'" />
+						<Label class="text-center t-16" textWrap="true" :text="'device login lock\napplication lock\nlocal encryption\noffline operation'" />
+						<Label class="m-10 text-center t-20" textWrap="true" :text="'SUPPORT'" />
+						<Label class="text-center t-16" textWrap="true" :text="'swtc'" />
 					</Stacklayout>
 				</ScrollView>
 			</GridLayout>
-			<GridLayout row="1" rows="*" columns="*" :visibility="visible_settings ? 'visible' : 'collapse'">
-				<Label class="big-ion text-center ion" :text="'ion-ios-settings' | fonticon" @tap="onSetPassword" />
-			</GridLayout>
 			<GridLayout row="1" rows="*" columns="*" :visibility="visible_wallets ? 'visible' : 'collapse'">
-				<Label class="big-ion text-center ion" :text="'ion-md-wallet' | fonticon" @tap="onSetPassword" />
+				<StackLayout row="0" col="0">
+					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+						<Label verticalAlignment="middle" class="m-20 big-ion ion" :text="'ion-md-wallet' | fonticon" @tap="$showModal($routes.Wallets, {fullscreen: true})" />
+						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
+							<Label col="1" class="t-20 m-r-20" :text="'No Wallet'" />
+						</GridLayout>
+					</GridLayout>
+					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'Import Wallet'" @tap="$showModal($routes.Wallets, {fullscreen: true, props: {importing: true}})" />
+					</GridLayout>
+				</StackLayout>
 			</GridLayout>
 			<GridLayout row="1" rows="*" columns="*" :visibility="visible_actions ? 'visible' : 'collapse'">
-				<Label class="big-ion text-center ion" :text="'ion-ios-build' | fonticon" @tap="onSetPassword" />
+				<StackLayout row="0" col="0">
+					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+						<Label verticalAlignment="middle" class="m-20 big-ion ion" :text="'ion-ios-build' | fonticon" />
+						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
+							<Label col="1" class="t-20 m-r-20" :text="'cold wallet'" />
+						</GridLayout>
+					</GridLayout>
+					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'Offline Sign'" @tap="onSignTransaction"/>
+					</GridLayout>
+				</StackLayout>
+			</GridLayout>
+			<GridLayout row="1" rows="*" columns="*" :visibility="visible_settings ? 'visible' : 'collapse'">
+				<ScrollView height="100%">
+					<StackLayout row="0" col="0">
+						<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+							<Label col="0" class="m-20 big-ion ion" :text="'ion-ios-settings' | fonticon" />
+							<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
+								<Button col="1" :text="'saveConfig'" isEnabled="config_dirty" class="btn btn-primary" @tap="saveConfig" />
+							</GridLayout>
+						</GridLayout>
+						<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+							<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+							<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
+								<Label col="0" verticalAlignment="middle" class="t-20" :text="'冷钱包'" />
+								<Switch class="switch" col="1" verticalAlignment="middle" v-model="cold_wallet" />
+							</GridLayout>
+						</GridLayout>
+						<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+							<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+							<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
+								<Label col="0"  verticalAlignment="middle" class="t-20" text="反馈" />
+								<Switch class="switch" col="1" verticalAlignment="middle" v-model="autoFeedback" />
+							</GridLayout>
+						</GridLayout>
+						<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+							<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+							<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
+								<Label col="0"  verticalAlignment="middle" class="t-20" text="提示" />
+								<Switch class="switch" col="1" verticalAlignment="middle" v-model="autoPrompt" />
+							</GridLayout>
+						</GridLayout>
+					</StackLayout>
+				</ScrollView>
 			</GridLayout>
 		</GridLayout>
 	</Page>
@@ -44,13 +96,15 @@
 	import jingtumBaseLib from '~/mixins/jingtumBaseLib'
 	import cryptoEncDec from '~/mixins/cryptoEncDec'
 	import statusBar from '~/mixins/statusBar'
+	import fancyAlert from '~/mixins/fancyAlert'
+	import feedback from '~/mixins/feedback'
 	import Settings from './Settings'
 	import Wallets from './Wallets'
 	import Sign from './Sign'
 	import Login from './Login'
 	import { mapGetters, mapMutations, mapActions } from "vuex";
 	export default {
-		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar ],
+		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar, fancyAlert, feedback ],
 		data () {
 			return {
 				navigation_settings: '',
@@ -60,7 +114,11 @@
 				visible_landing: true,
 				visible_settings: false,
 				visible_wallets: false,
-				visible_actions: false
+				visible_actions: false,
+				config_dirty: true,
+				cold_wallet: false
+				//auto_feedback: false,
+				//auto_prompt: false
 			}
 		},
 		created () {
@@ -83,9 +141,14 @@
 				console.log("login status change detected")
 				console.log(v)
 				if (!v) {
-					alert('please relogin...').then(
+					this.tnsFaAlert.showInfo(
+					  "注意",
+					  "监测到网络连接，应用很快关闭",
+					  "知道"
+					).then(
 						() => {
-							this.$showModal(Login, {fullscreen: true})
+							//this.$showModal(Login, {fullscreen: true})
+							this.$navigateTo(this.$routes.Login, { clearHistory: true })
 						}
 					)
 				}
@@ -135,7 +198,7 @@
 			},
 			onImportWallet() {
 				console.log("import wallet")
-				this.$showModal(Wallets, {fullscreen: true})
+				this.$showModal(Wallets, {fullscreen: true, props: { importing: true }})
 			},
 			onSignTransaction() {
 				console.log("sign transaction")
@@ -172,6 +235,9 @@
 	}
 	.big-ion {
 		font-size: 36;
+	}
+	.big-text {
+		font-size: 24;
 	}
 	.blue-sep {
 		background-color: blue;

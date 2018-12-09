@@ -44,8 +44,6 @@ export default {
 		if (this.swtcWallets.length === 0 && !this.swtcWallet.hasOwnProperty('address')) {
 			let wallet = this.Wallet.generate()
 			wallet.display = 'automatic created wallet, can be deleted'
-			//this.swtcWallet = wallet
-			//this.swtcWallets = wallet
 			console.log(wallet)
 		} 
 	},
