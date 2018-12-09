@@ -48,12 +48,12 @@
 		mixins: [ jingtumBaseLib, cryptoEncDec ],
 		data () {
 			return {
-				button_import_wallet: 'buttons.importWallet',
-				button_encrypt_secret: 'buttons.encryptSecret',
-				hint_secret: 'hints.enterSecret',
-				hint_name_wallet: 'hints.enterSecretAgain',
-				hint_encrypt_password: 'hints.setEncryptPassword',
-				hint_encrypt_password_again: 'hints.setEncryptPasswordAgain',
+				button_import_wallet: '',
+				button_encrypt_secret: '',
+				hint_secret: '',
+				hint_name_wallet: '',
+				hint_encrypt_password: '',
+				hint_encrypt_password_again: '',
 				importing: false,
 				settingpassword: false,
 				password: '',

@@ -1,12 +1,17 @@
 {
 	"app.name": "OfflineSign",
-	"settings": "Settings",
-	"wallets": "Wallets",
+	"navigations": {
+		"actions": "Actions",
+		"settings": "Settings",
+		"wallets": "Wallets"
+	},
 	"buttons": {
 		"login": "Login",
+		"unlock": "Unlock",
 		"importWallet": "Import Wallet",
 		"encryptSecret": "Encrypt Secret",
-		"setPassword": "Set Password"
+		"setPassword": "Set Password",
+		"resetPassword": "Reset Password"
 	},
 	"hints": {
 		"enterPassword": "Enter Password",
@@ -20,8 +25,11 @@
 		"passwordDifferent": "Same Password Needed",
 		"passwordSimple": "Simple Password Not Safe",
 		"passwordSet": "Password Set",
+		"passwordReset": "Password Reset",
 		"encryptedImported": "Encrypted And Imported",
 		"loginSuccess": "Login Success",
-		"loginFail": "Login Failed"
+		"loginFail": "Login Failed",
+		"unlockSuccess": "Unlock Success",
+		"unlockFail": "Unlock Failed"
 	}
 }

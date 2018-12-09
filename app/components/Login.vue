@@ -1,17 +1,10 @@
 <template>
 	<Page ref="loginpage" class="page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
-	    <ActionBar class="action-bar" flat="true" android:backgroundColor="transparent" ios:backgroundColor="rgb(13,73,127)">
-	        <Label class="text-center action-bar-title" :text="'app.name'"></Label>
-			<ActionItem ios.position="right">
-	        	<Label class="ion" :text="'ion-ios-close-circle' | fonticon" @tap="$modal.close"/>
-			</ActionItem>
-	    </ActionBar>
-	
 	    <GridLayout rows="auto,*" columns="*">
 	    	<StackLayout row="1" :visibility="password_set ? 'visible' : 'collapse'" verticalAlignment="middle">
 				<Label class="error" :visibility="!!message ? 'visible': 'collapse'" :text="message" />
 				<TextField class="password m-x-20 p-10" secure="true" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_enter_password" @textChange="onLoginReset" v-model="login_password" @returnPress="onLogin" />
-				<Button :isEnabled="enabled" class="btn btn-primary" :text="button_login" @tap="onLogin" />
+				<Button :isEnabled="enabled" class="btn btn-primary" :text="button_unlock" @tap="onLogin" />
 			</StackLayout>
 	    	<StackLayout row="1" :visibility="!password_set ? 'visible' : 'collapse'" verticalAlignment="middle">
 				<Label class="error" :visibility="!!message ? 'visible': 'collapse'" :text="message" />
@@ -33,7 +26,7 @@
 				hint_enter_password: '',
 				hint_enter_password_again: '',
 				button_set_password: '',
-				button_login: '',
+				button_unlock: '',
 				login_password: '',
 				password_set: false,
 				password: '',
@@ -50,7 +43,7 @@
 			this.hint_enter_password = localize('hints.enterPassword')
 			this.hint_enter_password_again = localize('hints.enterPasswordAgain')
 			this.button_set_password = localize('buttons.setPassword')
-			this.button_login = localize('buttons.login')
+			this.button_unlock = localize('buttons.unlock')
 		},
 		methods: {
 			onSetPassword () {
@@ -76,12 +69,12 @@
 				if (this.$store.getters.hash_master_password === this.hash_sha256(this.login_password)) {
 					this.$store.commit('setAppUnlocked', true)
 					this.$store.commit('setAppTimestamp', new Date().getTime())
-					this.$store.dispatch('showToasts', localize('messages.loginSuccess'))
+					this.$store.dispatch('showToasts', localize('messages.unlockSuccess'))
 					this.$navigateTo(this.$routes.Home, { clearHistory: true })
 				} else {
 					console.log(this.$store.getters.hash_master_password)
 					console.log(this.hash_sha256(this.login_password))
-					this.message = localize('messages.loginFail')
+					this.message = localize('messages.unlockFail')
 				}
 				this.login_password = ''
 			},
@@ -107,8 +100,6 @@
 		},
 		mounted () {
 			console.log("modal page settings mounted")
-			console.log(this.$store.getters.app_timestamp)
-			console.log(this.$store.getters.hash_master_password)
 		}
 	}
 </script>
