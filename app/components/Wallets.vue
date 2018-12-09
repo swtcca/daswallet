@@ -23,8 +23,8 @@
 				</Stacklayout>
 				<StackLayout row="1" :visibility="importing && !settingpassword ? 'visible' : 'collapse'" verticalAlignment="middle">
 					<Label class="error" :visibility="!!message ? 'visible': 'collapse'" :text="message" />
-					<TextField class="m-x-20 p-10" autocorrect="false" autocapitalizationType="none" maxLength="64" :hint="hint_secret" v-model="wallet.secret" />
-					<TextField class="m-x-20 p-10" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_name_wallet" v-model="wallet.display" />
+					<TextField class="m-x-20 m-y-5 p-y-5" ios:style="border-bottom-width:1" autocorrect="false" autocapitalizationType="none" maxLength="64" :hint="hint_secret" v-model="wallet.secret" />
+					<TextField class="m-x-20 m-y-5 p-y-5" ios:style="border-bottom-width:1" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_name_wallet" v-model="wallet.display" />
 					<Button class="btn btn-primary ion" :text="'ion-md-qr-scanner' | fonticon" @tap="onScanSecret" />
 					<Button :isEnabled="wallet.secret !== '' && wallet.display !== ''" class="btn btn-primary" :text="button_import_wallet" @tap="onImportWallet" />
 				</StackLayout>
@@ -178,5 +178,8 @@
 		font-size: 20;
 		margin: 20;
 		horizontal-align: center;
+	}
+	TextField {
+		border_width: 1;
 	}
 </style>

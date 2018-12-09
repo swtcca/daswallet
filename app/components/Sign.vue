@@ -13,10 +13,10 @@
 	        	<StackLayout row="1" verticalAlignment="middle">
 					<Button class="btn btn-primary" :isEnabled="enabled" :text="'Sign'" @tap="onSign" />
 					<Button class="btn btn-primary ion" :text="'ion-md-qr-scanner' | fonticon" @tap="onScanTransaction" />
-					<TextView class="m-x-20 p-10"  editable="false" :hint="'signed data'" v-model="signed" />
-					<TextView class="m-x-20 p-10"  editable="false" :hint="'signature'" v-model="signature" />
-					<TextField class="m-x-20 p-10" style="border-width:1" autocorrect="false" autoCapitalizationType="none" :hint="'scan tx data to sign'" v-model="tx_json" />
-					<TextField class="password m-x-20 p-10" style="border-width:1" autocorrect="false" autoCapitalizationType="none" :hint="'password to decrypt wallet'" v-model="password" />
+					<TextView class="m-x-20 m-y-5 p-5"  minHeight="80" editable="false" :hint="'signed data'" v-model="signed" />
+					<TextView class="m-x-20 m-y-5 p-5"  minHeight="60" editable="false" :hint="'signature'" v-model="signature" />
+					<TextField class="m-x-20 m-y-5 p-5" ios:style="border-bottom-width:1;" autocorrect="false" autocapitalizationType="none" :hint="'tx data to sign'" v-model="tx_json" />
+					<TextField class="password m-x-20 m-y-5 p-5" secure="true" autocorrect="false" autocapitalizationType="none" :hint="'decrypt password'" v-model="password" />
 					<DropDown class="m-x-20 m-t-20" ref="dropdown" row="0" :hint="'select wallet to sign with...'" selectedIndex="0" :items="$store.getters.swtcWallets.map(w => w.address)"  @selectedIndexChanged="onSelect" />
 				</StackLayout>
 			</GridLayout>
