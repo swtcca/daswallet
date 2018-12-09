@@ -11,6 +11,7 @@
 		"importWallet": "导入钱包",
 		"encryptSecret": "加密密钥",
 		"setPassword": "设置密码",
+		"saveConfig": "保存设置",
 		"resetPassword": "重置密码"
 	},
 	"hints": {
@@ -31,5 +32,20 @@
 		"loginFail": "登录失败",
 		"unlockSuccess": "解锁成功",
 		"unlockFail": "解锁失败"
+	},
+	"contents": {
+		"autoFeedback": "自动反馈",
+		"autoPrompt": "自动提示",
+		"secure": "安  全",
+		"support": "支  持",
+		"deviceLock": "设备锁",
+		"applicationLock": "应用锁",
+		"localEncryption": "本地加密",
+		"offlineOperation": "离线操作",
+		"offlineSign": "离线签名",
+		"swtc": "井通(SWTC)",
+		"importWallet": "导入钱包",
+		"coldWallet": "冷钱包",
+		"noWallet": "没有钱包"
 	}
 }

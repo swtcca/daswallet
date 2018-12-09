@@ -11,6 +11,7 @@
 		"importWallet": "Import Wallet",
 		"encryptSecret": "Encrypt Secret",
 		"setPassword": "Set Password",
+		"saveConfig": "Save Settings",
 		"resetPassword": "Reset Password"
 	},
 	"hints": {
@@ -31,5 +32,20 @@
 		"loginFail": "Login Failed",
 		"unlockSuccess": "Unlock Success",
 		"unlockFail": "Unlock Failed"
+	},
+	"contents": {
+		"autoFeedback": "Auto Feedback",
+		"autoPrompt": "Auto Prompt",
+		"secure": "SECURE",
+		"support": "SUPPORT",
+		"deviceLock": "Device Login Lock",
+		"applicationLock": "Application Lock",
+		"localEncryption": "Local Encryption",
+		"offlineOperation": "Offline Operation",
+		"offlineSign": "Offline Sign",
+		"swtc": "SWTC",
+		"importWallet": "Import Wallet",
+		"coldWallet": "Cold Wallet",
+		"noWallet": "No Wallets"
 	}
 }

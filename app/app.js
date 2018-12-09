@@ -24,7 +24,7 @@ Vue.registerElement("DropDown", () => require("nativescript-drop-down/drop-down"
 const connectivityModule = require("tns-core-modules/connectivity")
 connectivityModule.startMonitoring(v => store.commit('setConnectionType',v))
 
-//Vue.config.silent = (TNS_ENV === 'production')
+Vue.config.silent = (TNS_ENV === 'production')
 //import './app.scss'
 
 new Vue({

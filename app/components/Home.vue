@@ -1,7 +1,7 @@
 <template>
 	<Page ref="homepage" class="page" backgroundSpanUnderStatusBar="true" @loaded="pageLoaded">
 		<ActionBar class="action-bar" flat="true" android:backgroundColor="transparent" ios:backgroundColor="rgb(13,73,127)">
-			<Label class="text-center action-bar-title" :text="'app.name'|L"></Label>
+			<Label class="text-center action-bar-title" :text="actionbar_title"></Label>
 		</ActionBar>
 
 		<GridLayout rows="auto,*" columns="*">
@@ -18,11 +18,16 @@
 			<GridLayout row="1" rows="*" columns="*" :visibility="visible_landing ? 'visible' : 'collapse'">
 				<ScrollView height="100%">
 					<StackLayout>
-						<Button :text="'swtichLogin'" class="btn btn-primary" @tap="switchUnlocked" />
-						<Label class="m-10 text-center t-20" textWrap="true" :text="'SECURE'" />
-						<Label class="text-center t-16" textWrap="true" :text="'device login lock\napplication lock\nlocal encryption\noffline operation'" />
-						<Label class="m-10 text-center t-20" textWrap="true" :text="'SUPPORT'" />
-						<Label class="text-center t-16" textWrap="true" :text="'swtc'" />
+						<Button :text="'testUnlocked'" class="btn btn-primary" @tap="switchUnlocked" />
+						<Label class="m-y-10 text-center t-20" textWrap="true" :text="'contents.secure'|L" />
+						<StackLayout>
+							<Label class="text-center t-16" textWrap="true" :text="'contents.deviceLock'|L" />
+							<Label class="text-center t-16" textWrap="true" :text="'contents.applicationLock'|L" />
+							<Label class="text-center t-16" textWrap="true" :text="'contents.localEncryption'|L" />
+							<Label class="text-center t-16" textWrap="true" :text="'contents.offlineOperation'|L" />
+						</StackLayout>
+						<Label class="m-y-10 text-center t-20" textWrap="true" :text="'contents.support'|L" />
+						<Label class="text-center t-16" textWrap="true" :text="'contents.swtc'|L" />
 					</Stacklayout>
 				</ScrollView>
 			</GridLayout>
@@ -31,12 +36,12 @@
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label verticalAlignment="middle" class="m-20 big-ion ion" :text="'ion-md-wallet' | fonticon" @tap="$showModal($routes.Wallets, {fullscreen: true})" />
 						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
-							<Label col="1" class="t-20 m-r-20" :text="'No Wallet'" />
+							<Label col="1" class="t-20 m-r-20" :text="'contents.noWallet'|L" />
 						</GridLayout>
 					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'Import Wallet'" @tap="$showModal($routes.Wallets, {fullscreen: true, props: {importing: true}})" />
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.importWallet'|L" @tap="$showModal($routes.Wallets, {fullscreen: true, props: {importing: true}})" />
 					</GridLayout>
 				</StackLayout>
 			</GridLayout>
@@ -45,12 +50,12 @@
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label verticalAlignment="middle" class="m-20 big-ion ion" :text="'ion-ios-build' | fonticon" />
 						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
-							<Label col="1" class="t-20 m-r-20" :text="'cold wallet'" />
+							<Label col="1" class="t-20 m-r-20" :text="'contents.coldWallet'|L" />
 						</GridLayout>
 					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'Offline Sign'" @tap="onSignTransaction"/>
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.offlineSign'|L" @tap="onSignTransaction"/>
 					</GridLayout>
 				</StackLayout>
 			</GridLayout>
@@ -60,27 +65,27 @@
 						<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 							<Label col="0" class="m-20 big-ion ion" :text="'ion-ios-settings' | fonticon" />
 							<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
-								<Button col="1" :text="'saveConfig'" isEnabled="config_dirty" class="btn btn-primary" @tap="saveConfig" />
+								<Button col="1" :text="button_save_config" isEnabled="config_dirty" class="btn btn-primary" @tap="saveConfig" />
 							</GridLayout>
 						</GridLayout>
 						<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 							<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion ion" :text="'ion-ios-arrow-dropright' | fonticon" />
 							<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
-								<Label col="0" verticalAlignment="middle" class="t-20" :text="'冷钱包'" />
+								<Label col="0" verticalAlignment="middle" class="t-20" :text="'contents.coldWallet'|L" />
 								<Switch class="switch" col="1" verticalAlignment="middle" v-model="cold_wallet" />
 							</GridLayout>
 						</GridLayout>
 						<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 							<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion ion" :text="'ion-ios-arrow-dropright' | fonticon" />
 							<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
-								<Label col="0"  verticalAlignment="middle" class="t-20" text="反馈" />
+								<Label col="0"  verticalAlignment="middle" class="t-20" :text="'contents.autoFeedback'|L" />
 								<Switch class="switch" col="1" verticalAlignment="middle" v-model="autoFeedback" />
 							</GridLayout>
 						</GridLayout>
 						<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 							<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 big-ion ion" :text="'ion-ios-arrow-dropright' | fonticon" />
 							<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
-								<Label col="0"  verticalAlignment="middle" class="t-20" text="提示" />
+								<Label col="0"  verticalAlignment="middle" class="t-20" :text="'contents.autoPrompt'|L" />
 								<Switch class="switch" col="1" verticalAlignment="middle" v-model="autoPrompt" />
 							</GridLayout>
 						</GridLayout>
@@ -107,6 +112,8 @@
 		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar, fancyAlert, feedback ],
 		data () {
 			return {
+				actionbar_title: '',
+				button_save_config: '',
 				navigation_settings: '',
 				navigation_wallets: '',
 				navigation_actions: '',
@@ -123,6 +130,8 @@
 		},
 		created () {
 			console.log("component home vue created")
+			this.actionbar_title = localize('app.name')
+			this.button_save_config = localize('buttons.saveConfig')
 			this.navigation_settings = localize('navigations.settings')
 			this.navigation_wallets = localize('navigations.wallets')
 			this.navigation_actions = localize('navigations.actions')
