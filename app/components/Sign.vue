@@ -11,13 +11,13 @@
 	        <GridLayout rows="auto,*" columns="*">
 	           	<Label row="0" class="ion big-ion text-right" :text="'ion-ios-close-circle-outline' | fonticon" @tap="$modal.close"/>
 	        	<StackLayout row="1" verticalAlignment="middle">
-					<Button class="btn btn-primary" :isEnabled="enabled" :text="'Sign'" @tap="onSign" />
+					<Button class="btn btn-primary" :isEnabled="enabled" :text="button_sign" @tap="onSign" />
 					<Button class="btn btn-primary ion" :text="'ion-md-qr-scanner' | fonticon" @tap="onScanTransaction" />
-					<TextView class="m-x-20 m-y-5 p-5"  minHeight="80" editable="false" :hint="'signed data'" v-model="signed" />
-					<TextView class="m-x-20 m-y-5 p-5"  minHeight="60" editable="false" :hint="'signature'" v-model="signature" />
-					<TextField class="m-x-20 m-y-5 p-5" ios:style="border-bottom-width:1;" autocorrect="false" autocapitalizationType="none" :hint="'tx data to sign'" v-model="tx_json" />
-					<TextField class="password m-x-20 m-y-5 p-5" secure="true" autocorrect="false" autocapitalizationType="none" :hint="'decrypt password'" v-model="password" />
-					<DropDown class="m-x-20 m-t-20" ref="dropdown" row="0" :hint="'select wallet to sign with...'" selectedIndex="0" :items="$store.getters.swtcWallets.map(w => w.address)"  @selectedIndexChanged="onSelect" />
+					<TextView class="m-x-20 m-y-5 p-5"  minHeight="80" editable="false" :hint="hint_signed_data" v-model="signed" />
+					<TextView class="m-x-20 m-y-5 p-5"  minHeight="60" editable="false" :hint="hint_signature" v-model="signature" />
+					<TextField class="m-x-20 m-y-5 p-5" ios:style="border-bottom-width:1;" autocorrect="false" autocapitalizationType="none" :hint="hint_data_to_sign" v-model="tx_json" />
+					<TextField class="password m-x-20 m-y-5 p-5" secure="true" autocorrect="false" autocapitalizationType="none" :hint="hint_decrypt_password" v-model="password" />
+					<DropDown class="m-x-20 m-t-20" ref="dropdown" row="0" :hint="hint_select_wallet_to_sign_with" selectedIndex="0" :items="$store.getters.swtcWallets.map(w => w.address)"  @selectedIndexChanged="onSelect" />
 				</StackLayout>
 			</GridLayout>
 		</Page>
@@ -25,18 +25,33 @@
 </template>
 
 <script>
+	const localize = require("nativescript-localize")
 	import jingtumBaseLib from '~/mixins/jingtumBaseLib'
 	import cryptoEncDec from '~/mixins/cryptoEncDec'
 	export default {
 		mixins: [ jingtumBaseLib, cryptoEncDec ],
 		data () {
 			return {
+				button_sign: '',
+				hint_signed_data: '',
+				hint_data_to_sign: '',
+				hint_signature: '',
+				hint_decrypt_password: '',
+				hint_select_wallet_to_sign_with: '',
 				walletIndex: 0,
 				password: '',
 				tx_json: '',
 				signed: '',
 				signature: ''
 			}
+		},
+		created() {
+			this.button_sign = localize('buttons.sign')
+			this.hint_signed_data = localize("hints.signedData")
+			this.hint_data_to_sign = localize("hints.dataToSign")
+			this.hint_signature = localize("hints.signature")
+			this.hint_decrypt_password = localize("hints.decryptPassword")
+			this.hint_select_wallet_to_sign_with = localize("hints.selectWalletToSignWith")
 		},
 		computed: {
 			enabled: {

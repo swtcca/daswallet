@@ -8,6 +8,7 @@
 	"buttons": {
 		"login": "Login",
 		"unlock": "Unlock",
+		"sign": "Sign",
 		"importWallet": "Import Wallet",
 		"encryptSecret": "Encrypt Secret",
 		"setPassword": "Set Password",
@@ -20,7 +21,12 @@
 		"setEncryptPassword": "Enter Encrypt Password",
 		"setEncryptPasswordAgain": "Enter Encrypt Password Again",
 		"enterSecret": "Enter or Scan Secret",
-		"nameWallet": "Name This Wallet"
+		"nameWallet": "Name This Wallet",
+		"signedData": "Signed Data",
+		"dataToSign": "Data To Sign",
+		"signature": "Signature",
+		"decryptPassword": "Decrypt Password",
+		"selectWalletToSignWith": "Select Wallet To Sign With"
 	},
 	"messages": {
 		"passwordDifferent": "Same Password Needed",
