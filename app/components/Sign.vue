@@ -1,12 +1,6 @@
 <template>
 	<Frame>
-	    <Page ref="signpage" class="page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
-	        <ActionBar class="action-bar" flat="true" android:backgroundColor="transparent" ios:backgroundColor="rgb(13,73,127)">
-	            <Label class="text-center action-bar-title" :text="'app.name'"></Label>
-				<ActionItem ios.position="right">
-	            	<Label class="ion" :text="'ion-ios-close-circle' | fonticon" @tap="$modal.close"/>
-				</ActionItem>
-	        </ActionBar>
+		<Page ref="signpage" class="page"  actionBarHidden="true" backgroundSpanUnderStatusBar="true" @loaded="statusBarAndroid">
 	
 	        <GridLayout rows="auto,*" columns="*">
 	           	<Label row="0" class="ion big-ion text-right" :text="'ion-ios-close-circle-outline' | fonticon" @tap="$modal.close"/>
@@ -15,7 +9,7 @@
 					<Button class="btn btn-primary ion" :text="'ion-md-qr-scanner' | fonticon" @tap="onScanTransaction" />
 					<TextView class="m-x-20 m-y-5 p-5"  minHeight="80" editable="false" :hint="hint_signed_data" v-model="signed" />
 					<TextView class="m-x-20 m-y-5 p-5"  minHeight="60" editable="false" :hint="hint_signature" v-model="signature" />
-					<TextField class="m-x-20 m-y-5 p-5" ios:style="border-bottom-width:1;" autocorrect="false" autocapitalizationType="none" :hint="hint_data_to_sign" v-model="tx_json" />
+					<TextField class="m-x-20 m-y-5 p-5" ios:style="border-bottom-width:1px;" autocorrect="false" autocapitalizationType="none" :hint="hint_data_to_sign" v-model="tx_json" />
 					<TextField class="password m-x-20 m-y-5 p-5" secure="true" autocorrect="false" autocapitalizationType="none" :hint="hint_decrypt_password" v-model="password" />
 					<DropDown class="m-x-20 m-t-20" ref="dropdown" row="0" :hint="hint_select_wallet_to_sign_with" selectedIndex="0" :items="$store.getters.swtcWallets.map(w => w.address)"  @selectedIndexChanged="onSelect" />
 				</StackLayout>
@@ -28,8 +22,9 @@
 	const localize = require("nativescript-localize")
 	import jingtumBaseLib from '~/mixins/jingtumBaseLib'
 	import cryptoEncDec from '~/mixins/cryptoEncDec'
+	import statusBar from '~/mixins/statusBar'
 	export default {
-		mixins: [ jingtumBaseLib, cryptoEncDec ],
+		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar ],
 		data () {
 			return {
 				button_sign: '',

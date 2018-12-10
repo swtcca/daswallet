@@ -1,15 +1,15 @@
 <template>
-	<Page ref="loginpage" class="page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
+	<Page ref="loginpage" class="page" actionBarHidden="true" backgroundSpanUnderStatusBar="true" @loaded="statusBarAndroid">
 	    <GridLayout rows="auto,*" columns="*">
 	    	<StackLayout row="1" :visibility="password_set ? 'visible' : 'collapse'" verticalAlignment="middle">
-				<Label class="error" :visibility="!!message ? 'visible': 'collapse'" :text="message" />
-				<TextField class="password m-x-20" secure="true" minHeight="60" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_enter_password" @textChange="onLoginReset" v-model="login_password" @returnPress="onLogin" />
+				<Label class="error" v-show="message" :text="message" />
+				<TextField class="password m-x-20" secure="true" minHeight="40" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_enter_password" @textChange="onLoginReset" v-model="login_password" @returnPress="onLogin" />
 				<Button :isEnabled="enabled" class="btn btn-primary" :text="button_unlock" @tap="onLogin" />
 			</StackLayout>
 	    	<StackLayout row="1" :visibility="!password_set ? 'visible' : 'collapse'" verticalAlignment="middle">
-				<Label class="error" :visibility="!!message ? 'visible': 'collapse'" :text="message" />
-				<TextField class="password m-x-20" secure="true" minHeight="60" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_enter_password" @focus="message=''" @textChange="onSet" v-model="password" />
-				<TextField class="password m-x-20" secure="true" minHeight="60" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_enter_password_again" @focus="message=''" @textChange="onSet" v-model='password2' />
+				<Label class="error" v-show="message" :text="message" />
+				<TextField class="password m-x-20" secure="true" minHeight="40" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_enter_password" @focus="message=''" @textChange="onSet" v-model="password" />
+				<TextField class="password m-x-20" secure="true" minHeight="40" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_enter_password_again" @focus="message=''" @textChange="onSet" v-model='password2' />
 				<Button class="btn btn-primary" :isEnabled="enabled" :text="button_set_password" @tap="onSetPassword" />
 			</StackLayout>
 		</GridLayout>
@@ -18,9 +18,10 @@
 
 <script>
 	const localize = require("nativescript-localize")
+	import statusBar from '~/mixins/statusBar'
 	import cryptoEncDec from '~/mixins/cryptoEncDec'
     export default {
-		mixins: [ cryptoEncDec ],
+		mixins: [ cryptoEncDec, statusBar ],
 		data () {
 			return {
 				hint_enter_password: '',

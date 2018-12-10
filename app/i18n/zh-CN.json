@@ -1,6 +1,7 @@
 {
-	"app.name": "离线签名",
+	"app.name": "DAS钱包",
 	"navigations": {
+		"about": "关于",
 		"actions": "操作",
 		"settings": "设置",
 		"wallets": "钱包"

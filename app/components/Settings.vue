@@ -1,6 +1,6 @@
 <template>
 	<Frame>
-	    <Page ref="settingspage" class="page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
+		<Page ref="settingspage" class="page" actionBarHidden="true" backgroundSpanUnderStatusBar="true" @loaded="statusBarAndroid">
 	        <ActionBar class="action-bar" flat="true" android:backgroundColor="transparent" ios:backgroundColor="rgb(13,73,127)">
 	            <Label class="text-center action-bar-title" :text="'app.name'"></Label>
 				<ActionItem ios.position="right">
@@ -28,9 +28,10 @@
 
 <script>
 	const localize = require("nativescript-localize")
+	import statusBar from '~/mixins/statusBar'
 	import cryptoEncDec from '~/mixins/cryptoEncDec'
     export default {
-		mixins: [ cryptoEncDec ],
+		mixins: [ cryptoEncDec, statusBar ],
 		data () {
 			return {
 				hint_enter_password: '',

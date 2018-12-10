@@ -1,6 +1,6 @@
 <template>
 	<Frame>
-	    <Page ref="walletspage" class="page" actionBarHidden="true" backgroundSpanUnderStatusBar="true">
+		<Page ref="walletpage" class="page"  actionBarHidden="true" backgroundSpanUnderStatusBar="true" @loaded="statusBarAndroid">
 	        <ActionBar class="action-bar" flat="true" android:backgroundColor="transparent" ios:backgroundColor="rgb(13,73,127)">
 	            <Label class="text-center action-bar-title" :text="'app.name'"></Label>
 				<ActionItem ios.position="right">
@@ -41,11 +41,12 @@
 </template>
 
 <script>
-	import jingtumBaseLib from '~/mixins/jingtumBaseLib'
 	import cryptoEncDec from '~/mixins/cryptoEncDec'
 	const localize = require("nativescript-localize")
+	import statusBar from '~/mixins/statusBar'
+	import jingtumBaseLib from '~/mixins/jingtumBaseLib'
 	export default {
-		mixins: [ jingtumBaseLib, cryptoEncDec ],
+		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar ],
 		props: {
 			importing: {
 				type: Boolean,

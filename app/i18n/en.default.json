@@ -1,6 +1,7 @@
 {
-	"app.name": "OfflineSign",
+	"app.name": "DASWALLET",
 	"navigations": {
+		"about": "About",
 		"actions": "Actions",
 		"settings": "Settings",
 		"wallets": "Wallets"
