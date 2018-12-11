@@ -6,6 +6,7 @@ import qrScan from './modules/qrScan'
 import qrCode from './modules/qrCode'
 import connectivity from './modules/connectivity'
 import logger from './modules/logger'
+import actions from './modules/actions'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ let store = new Vuex.Store({
 		qrScan,
 		qrCode,
 		logger,
-		connectivity
+		connectivity,
+		actions
 	},
 	state: {
 		debug: debug,

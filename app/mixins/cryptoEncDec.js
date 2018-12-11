@@ -25,32 +25,32 @@ export default {
 	},
 	mounted () {
 		console.log('mixins cryptoEncDec mounted self test')
-		if (this.$store.state.debug) {
-			this.crypto_password = '密码'
-			this.crypto_content = '内容'
-			console.log(`hmacsha1 = ${Crypto.HmacSHA1(this.crypto_content, this.crypto_password)}`)
-			console.log(this.hash_sha256('123'))
-			console.log(this.hash_sha256(this.crypto_password))
-			this.crypto_encrypted = this.encrypt(this.crypto_content, this.crypto_password)
-			console.log(`
-				this.crypto_password = ${this.crypto_password}
-				this.crypto_content = ${this.crypto_content}
-				this.crypto_encrypted = this.encrypt(this.crypto_content, this.crypto_password)
-				this.crypto_encrypted = ${this.crypto_encrypted}
-			`)
-			this.crypto_content = ''
-			this.crypto_content = this.decrypt(this.crypto_encrypted, this.crypto_password)
-			console.log(`
-				this.crypto_content = ''
-				this.crypto_content = this.decrypt(this.crypto_encrypted, this.crypto_password)
-				this.crypto_content = ${this.crypto_content}
-			`)
-			console.log(`hmacsha1 = ${Crypto.HmacSHA1(this.crypto_content, this.crypto_password)}`)
-			console.log(this.hash_sha256('123'))
-			console.log(this.hash_sha256(this.crypto_password))
-			this.crypto_password = null
-			this.crypto_content = null
-			this.crypto_encrypted = null
-		}
+	//	if (this.$store.state.debug) {
+	//		this.crypto_password = '密码'
+	//		this.crypto_content = '内容'
+	//		console.log(`hmacsha1 = ${Crypto.HmacSHA1(this.crypto_content, this.crypto_password)}`)
+	//		console.log(this.hash_sha256('123'))
+	//		console.log(this.hash_sha256(this.crypto_password))
+	//		this.crypto_encrypted = this.encrypt(this.crypto_content, this.crypto_password)
+	//		console.log(`
+	//			this.crypto_password = ${this.crypto_password}
+	//			this.crypto_content = ${this.crypto_content}
+	//			this.crypto_encrypted = this.encrypt(this.crypto_content, this.crypto_password)
+	//			this.crypto_encrypted = ${this.crypto_encrypted}
+	//		`)
+	//		this.crypto_content = ''
+	//		this.crypto_content = this.decrypt(this.crypto_encrypted, this.crypto_password)
+	//		console.log(`
+	//			this.crypto_content = ''
+	//			this.crypto_content = this.decrypt(this.crypto_encrypted, this.crypto_password)
+	//			this.crypto_content = ${this.crypto_content}
+	//		`)
+	//		console.log(`hmacsha1 = ${Crypto.HmacSHA1(this.crypto_content, this.crypto_password)}`)
+	//		console.log(this.hash_sha256('123'))
+	//		console.log(this.hash_sha256(this.crypto_password))
+	//		this.crypto_password = null
+	//		this.crypto_content = null
+	//		this.crypto_encrypted = null
+	//	}
 	},
 }
