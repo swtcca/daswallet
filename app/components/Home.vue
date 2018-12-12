@@ -120,7 +120,14 @@
 						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto,auto">
 							<Label col="0"  verticalAlignment="middle" class="t-20" :text="'contents.idleTime'" />
 							<Label class="t-20 m-r-20" col="1" verticalAlignment="middle" :text="'contents.minutes'" />
-							<TextField class="t-20 m-r-20" col="2" verticalAlignment="middle" v-model="idleTime" />
+							<TextField class="password t-20 m-r-20" col="2" verticalAlignment="middle" v-model="idleTime" @blur="pageStatusBar"/>
+						</GridLayout>
+					</GridLayout>
+					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
+							<Label col="0"  verticalAlignment="middle" class="t-20" :text="'contents.servers'" />
+							<Label class="m-r-20 m-y-10 ion" col="1" verticalAlignment="middle" :text="'ion-ios-arrow-forward'|fonticon" />
 						</GridLayout>
 					</GridLayout>
 				</StackLayout>
@@ -143,13 +150,14 @@
 	import statusBar from '~/mixins/statusBar'
 	import fancyAlert from '~/mixins/fancyAlert'
 	import feedback from '~/mixins/feedback'
+	import orientation from '~/mixins/orientation'
 	import Settings from './Settings'
 	import Wallets from './Wallets'
 	import Sign from './Sign'
 	import Login from './Login'
 	import { mapGetters, mapMutations, mapActions } from "vuex";
 	export default {
-		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar, fancyAlert, feedback ],
+		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar, fancyAlert, feedback, orientation ],
 		data () {
 			return {
 				actionbar_title: '',
@@ -278,6 +286,7 @@
 			},
 			pageLoaded(args) {
 				console.log("home page loaded")
+				this.applyOrientation(false)
 				this.hardwareBackAndroid(args)
 				this.pageStatusBar(args)
 			},

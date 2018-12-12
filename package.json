@@ -24,6 +24,7 @@
     "nativescript-fonticon": "^2.0.0",
     "nativescript-localize": "^4.1.0",
     "nativescript-nodeify": "^0.8.0",
+    "nativescript-orientation": "^2.2.1",
     "nativescript-platform-css": "^1.6.6",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-toasts": "^1.0.3",
