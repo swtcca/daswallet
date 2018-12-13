@@ -5,6 +5,7 @@ export default {
     data () {
       return {
           statusBarHeight: 0,
+          navigationBarHeight: 0
       }
     },
     computed: {
@@ -19,15 +20,16 @@ export default {
             const View = android.view.View;
             const decorView = window.getDecorView()
             window.setStatusBarColor(0x000000)
+            window.setNavigationBarColor(0x000000)
             decorView.setSystemUiVisibility(
               View.SYSTEM_UI_FLAG_LAYOUT_STABLE
               | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
               | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
               //| View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-              | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
               | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+              | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             )
-            let statusHeight 
+            let statusHeight, navigationHeight 
             let resourceId = application.android.currentContext.getResources().getIdentifier('status_bar_height', 'dimen', 'android');
             if (resourceId) {
               statusHeight = application.android.currentContext.getResources().getDimensionPixelSize(resourceId);
@@ -35,6 +37,14 @@ export default {
             if (statusHeight) {
               this.statusBarHeight = statusHeight
               console.log(`statusbar height ${this.statusBarHeight}`)
+            }
+            resourceId = application.android.currentContext.getResources().getIdentifier('navigation_bar_height', 'dimen', 'android');
+            if (resourceId) {
+              navigationHeight = application.android.currentContext.getResources().getDimensionPixelSize(resourceId);
+            }
+            if (navigationHeight) {
+              this.navigationBarHeight = navigationHeight
+              console.log(`navigationbar height ${this.navigationBarHeight}`)
             }
           }
         },

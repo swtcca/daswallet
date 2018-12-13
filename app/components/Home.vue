@@ -81,6 +81,10 @@
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
 						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.offlineSign'|L" @tap="onSignTransaction"/>
 					</GridLayout>
+					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.createTransaction'|L" @tap="onCreateTransaction"/>
+					</GridLayout>
 				</StackLayout>
 			</GridLayout>
 			<GridLayout row="1" rows="auto,*" columns="*" :visibility="visibleTab('settings') ? 'visible' : 'collapse'">
@@ -132,7 +136,7 @@
 					</GridLayout>
 				</StackLayout>
 			</GridLayout>
-			<GridLayout row="2" rows="auto,auto,auto" columns="*,*,*,*">
+			<GridLayout row="2" :class="navigationClass('')" rows="auto,auto,auto" columns="*,*,*,*">
 				<label row="0" col="0" colSpan="4" class="hr-light"/>
 				<Label row="1" col="0" class="big-ion-nav text-center ion" :class="activeClass('settings')" :text="'ion-ios-settings' | fonticon" @tap="currentTab='settings'" />
 				<Label row="1" col="1" class="big-ion-nav text-center ion" :class="activeClass('wallets')" :text="'ion-md-wallet' | fonticon" @tap="currentTab='wallets'" />
@@ -197,6 +201,11 @@
 			activeClass() {
 				return (tab) => ({
 					active: tab === this.currentTab
+				});
+			},
+			navigationClass() {
+				return () => ({
+					navigation: false
 				});
 			},
 			cold_wallet: {
@@ -276,6 +285,10 @@
 				console.log("import wallet")
 				this.$showModal(Wallets, {fullscreen: true, props: { importing: true }})
 			},
+			onCreateTransaction() {
+				console.log("create transaction")
+				this.$showModal(Sign, {fullscreen: true})
+			},
 			onSignTransaction() {
 				console.log("sign transaction")
 				this.$showModal(Sign, {fullscreen: true})
@@ -337,5 +350,8 @@
 	}
 	.active {
 		color: white;
+	}
+	.navigation {
+		margin-bottom: 36;
 	}
 </style>
