@@ -27,12 +27,12 @@
 		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar ],
 		data () {
 			return {
-				button_sign: '',
-				hint_signed_data: '',
-				hint_data_to_sign: '',
-				hint_signature: '',
-				hint_decrypt_password: '',
-				hint_select_wallet_to_sign_with: '',
+				button_sign: localize('buttons.sign'),
+				hint_signed_data: localize("hints.signedData"),
+				hint_data_to_sign: localize("hints.dataToSign"),
+				hint_signature: localize("hints.signature"),
+				hint_decrypt_password: localize("hints.decryptPassword"),
+				hint_select_wallet_to_sign_with: localize("hints.selectWalletToSignWith"),
 				walletIndex: 0,
 				password: '',
 				tx_json: '',
@@ -41,12 +41,6 @@
 			}
 		},
 		created() {
-			this.button_sign = localize('buttons.sign')
-			this.hint_signed_data = localize("hints.signedData")
-			this.hint_data_to_sign = localize("hints.dataToSign")
-			this.hint_signature = localize("hints.signature")
-			this.hint_decrypt_password = localize("hints.decryptPassword")
-			this.hint_select_wallet_to_sign_with = localize("hints.selectWalletToSignWith")
 		},
 		computed: {
 			enabled: {

@@ -64,11 +64,15 @@
 				<StackLayout row="1" col="0" verticalAlignment="middle">
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.importWallet'|L" @tap="$store.commit('setImporting',true); $store.commit('setCreating',false); $showModal($routes.Wallets, {fullscreen: true})" />
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.importWallet'|L" @tap="$store.commit('setImporting',true); $store.commit('setImportingWatch',false); $store.commit('setCreating',false); $showModal($routes.Wallets, {fullscreen: true})" />
 					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.createWallet'|L" @tap="$store.commit('setCreating',true); $store.commit('setImporing',false); $showModal($routes.Wallets, {fullscreen: true})" />
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.importWatchWallet'|L" @tap="$store.commit('setImportingWatch',true); $store.commit('setImporing',false); $store.commit('setCreating',false); $showModal($routes.Wallets, {fullscreen: true})" />
+					</GridLayout>
+					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.createWallet'|L" @tap="$store.commit('setCreating',true); $store.commit('setImporing',false); $store.commit('setImportingWatch',false); $showModal($routes.Wallets, {fullscreen: true})" />
 					</GridLayout>
 				</StackLayout>
 				<StackLayout row="2" col="0" :visibility="$store.getters.swtcWallets.length > 0 ? 'visible' : 'collapse'" verticalAlignment="middle">
@@ -90,11 +94,15 @@
 				<StackLayout row="1" col="0" verticalAlignment="middle">
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.offlineSign'|L" @tap="onSignTransaction"/>
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.signTransaction'|L" @tap="onSignTransaction"/>
 					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
 						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.createTransaction'|L" @tap="onCreateTransaction"/>
+					</GridLayout>
+					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.transferAsset'|L" @tap="onTransferAsset"/>
 					</GridLayout>
 				</StackLayout>
 			</GridLayout>
@@ -102,13 +110,6 @@
 				<StackLayout row="0" col="0">
 				</StackLayout>
 				<StackLayout row="1" col="0" verticalAlignment="middle">
-					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
-						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
-							<Label col="0" verticalAlignment="middle" class="t-20" :text="'contents.coldWallet'|L" />
-							<Switch class="switch" col="1" verticalAlignment="middle" v-model="cold_wallet" />
-						</GridLayout>
-					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 ion" :text="'ion-ios-arrow-dropright' | fonticon" />
 						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
@@ -126,13 +127,22 @@
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 ion" :text="'ion-ios-arrow-dropright' | fonticon" />
 						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
-							<Label col="0"  verticalAlignment="middle" class="t-20" :text="'contents.servers'" />
+							<Label col="0" verticalAlignment="middle" class="t-20" :text="'contents.coldWallet'|L" />
+							<Switch class="switch" col="1" verticalAlignment="middle" v-model="cold_wallet" />
+						</GridLayout>
+					</GridLayout>
+					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
+						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 ion" :text="'ion-ios-arrow-dropright' | fonticon" />
+						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
+							<Label col="0"  verticalAlignment="middle" class="t-20" :text="'contents.servers'|L" />
 							<Label class="m-r-20 m-y-10 ion" col="1" verticalAlignment="middle" :text="'ion-ios-arrow-forward'|fonticon" />
 						</GridLayout>
 					</GridLayout>
+					<!--
 					<GridLayout verticalAlignment="middle" rows="auto" columns="*">
 						<RadDataForm :source="settings" :metadata="settingsMetadata" />
 					</GridLayout>
+					-->
 				</StackLayout>
 			</GridLayout>
 		</GridLayout>
@@ -156,12 +166,12 @@
 		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar, fancyAlert, feedback, orientation ],
 		data () {
 			return {
-				actionbar_title: '',
-				button_save_config: '',
-				navigation_settings: '',
-				navigation_wallets: '',
-				navigation_actions: '',
-				navigation_about: '',
+				actionbar_title: localize('app.name'),
+				button_save_config: localize('buttons.saveConfig'),
+				navigation_settings: localize('navigations.settings'),
+				navigation_wallets: localize('navigations.wallets'),
+				navigation_actions: localize('navigations.actions'),
+				navigation_about: localize('navigations.about'),
 				flag_password: null,
 				visible_about: true,
 				visible_settings: false,
@@ -210,12 +220,6 @@
 		},
 		created () {
 			console.log("component home vue created")
-			this.actionbar_title = localize('app.name')
-			this.button_save_config = localize('buttons.saveConfig')
-			this.navigation_settings = localize('navigations.settings')
-			this.navigation_wallets = localize('navigations.wallets')
-			this.navigation_actions = localize('navigations.actions')
-			this.navigation_about = localize('navigations.about')
 		},
 		computed: {
 			...mapGetters(['connectionType', 'app_unlocked']),
@@ -312,6 +316,10 @@
 				console.log("import wallet")
 				this.$showModal(Wallets, {fullscreen: true, props: { importing: true }})
 			},
+			onTransferAsset() {
+				console.log("transfer asset")
+				this.$showModal(Sign, {fullscreen: true})
+			},
 			onCreateTransaction() {
 				console.log("create transaction")
 				this.$showModal(Sign, {fullscreen: true})
@@ -343,6 +351,27 @@
 	// End custom common variables
 
 	// Custom styles
+	RadDataForm {
+	    background-color: transparent;
+		border-width:5;
+		border-color: transparent;
+	}
+	PropertyEditor {
+	    background-color: transparent;
+		separatorColor: transparent;
+	    color: purple;
+	}
+	DataFormEditorLabel {
+	    background-color: transparent;
+		separatorColor: transparent;
+	    color: blue;
+		position: left;
+	}
+	DataFormEditorCore {
+	    background-color: transparent;
+		separatorColor: transparent;
+	    color: green;
+	}
 	.page {
 //		background: rgb(13,73,127);
 //		background: linear-gradient(180deg, rgba(13,73,127,1) 0%, rgba(20,116,182,1) 12%, rgba(0,212,255,1) 50%, rgba(20,116,182,1) 88%, rgba(13,73,127,1) 100%);
@@ -382,25 +411,5 @@ background: linear-gradient(180deg, rgba(38,112,179,1) 0%, rgba(75,144,210,1) 10
 	}
 	.navigation {
 		margin-bottom: 36;
-	}
-	RadDataForm {
-	    background-color: transparent;
-		border-width:5;
-		border-color: transparent;
-	}
-	PropertyEditor {
-	    background-color: transparent;
-		separatorColor: transparent;
-	    color: purple;
-	}
-	DataFormEditorLabel {
-	    background-color: transparent;
-		separatorColor: transparent;
-	    color: blue;
-	}
-	DataFormEditorCore {
-	    background-color: transparent;
-		separatorColor: transparent;
-	    color: green;
 	}
 </style>
