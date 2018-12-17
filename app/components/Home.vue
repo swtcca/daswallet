@@ -2,17 +2,42 @@
 	<Page ref="homepage" class="page"  actionBarHidden="true" backgroundSpanUnderStatusBar="true" @navigatingTo="pageStatusBar" @navigatedTo="pageStatusBar" @navigatingFrom="pageStatusBar" @navigatedFrom="pageStatusBar" @loaded="pageLoaded">
 
 		<GridLayout rows="auto,*,auto" columns="*">
-			<GridLayout row="0" rows="auto" columns="*">
-				<Label row="0" android:class="p-t-10" text=" " />
+			<GridLayout row="0" :class="navigationClass('')" android:style="margin-top:96px" rows="auto,auto,auto" columns="auto,*,auto,*,auto,*,auto">
+				<label row="0" col="0" colSpan="7" class="hr-light"/>
+				<Label row="1" col="0" class="big-ion-nav ion" :class="activeClass('settings')" :text="'ion-ios-settings' | fonticon" @tap="currentTab='settings'" />
+				<Label row="1" col="2" class="big-ion-nav ion" :class="activeClass('wallets')" :text="'ion-md-wallet' | fonticon" @tap="currentTab='wallets'" />
+				<Label row="1" col="4" class="big-ion-nav ion" :class="activeClass('actions')" :text="'ion-ios-build' | fonticon" @tap="currentTab='actions'" />
+				<Label row="1" col="6" class="big-ion-nav ion" :class="activeClass('about')" :text="'ion-ios-information-circle' | fonticon" @tap="currentTab='about'" />
+				<label row="2" col="0" colSpan="7" class="hr-light"/>
+			</GridLayout>
+			<GridLayout row="2" rows="auto,auto" columns="*">
+				<label row="0" class="hr-light" />
+				<GridLayout row="1" verticalAlignment="middle" minHeight="30" rows="auto" columns="*,*,*" :visibility="visibleTab('about') ? 'visible' : 'collapse'">
+					<Label col="0" verticalAlignment="middle" class="head-nav-left big-ion text-left ion active" :text="'ion-ios-information-circle' | fonticon" />
+					<Label col="1" verticalAlignment="middle" class="head-nav-centert text-center active"  style="font-size:24;" :text="actionbar_title" />
+					<Label col="2" verticalAlignment="middle" class="head-nav-right t-20 text-right active" :text="navigation_about" />
+				</GridLayout>
+				<GridLayout row="1" verticalAlignment="middle" minHeight="30" rows="auto" columns="*,*,*" :visibility="visibleTab('wallets') ? 'visible' : 'collapse'">
+					<Label col="0" verticalAlignment="middle" class="head-nav-left big-ion text-left ion active" :text="'ion-md-wallet' | fonticon" @tap="$showModal($routes.Wallets, {fullscreen: true})" />
+					<Label col="1" v-show="false" verticalAlignment="middle" class="head-nav-center t-16 text-center active" :text="'contents.noWallet'|L" />
+					<Label col="1" verticalAlignment="middle" class="head-nav-centert text-center active"  style="font-size:24;" :text="actionbar_title" />
+					<Label col="2" verticalAlignment="middle" class="head-nav-right t-20 text-right active" :text="navigation_wallets" />
+				</GridLayout>
+				<GridLayout row="1" verticalAlignment="middle" minHeight="30" rows="auto" columns="*,*,*" :visibility="visibleTab('actions') ? 'visible' : 'collapse'">
+					<Label col="0" verticalAlignment="middle" class="head-nav-left big-ion text-left ion active" :text="'ion-ios-build' | fonticon" />
+					<Label col="1" v-show="false" verticalAlignment="middle" class="head-nav-center t-16 text-center active" :text="'contents.coldWallet'|L" />
+					<Label col="1" verticalAlignment="middle" class="head-nav-centert text-center active"  style="font-size:24;" :text="actionbar_title" />
+					<Label col="2" verticalAlignment="middle" class="head-nav-right t-20 text-right active" :text="navigation_actions" />
+				</GridLayout>
+				<GridLayout row="1" verticalAlignment="middle" minHeight="30" rows="auto" columns="*,*,*" :visibility="visibleTab('settings') ? 'visible' : 'collapse'">
+					<Label col="0" verticalAlignment="middle" class="head-nav-left big-ion text-left ion active" :text="'ion-ios-settings' | fonticon" />
+					<Label col="1" v-show="config_dirty" verticalAlignment="middle" :text="button_save_config" class="head-nav-center t-16 text-center active" @tap="saveConfig" />
+					<Label col="1" v-show="!config_dirty" verticalAlignment="middle" class="head-nav-centert text-center active"  style="font-size:24;" :text="actionbar_title" />
+					<Label col="2" verticalAlignment="middle" class="head-nav-right t-20 text-right active" :text="navigation_settings" />
+				</GridLayout>
 			</GridLayout>
 			<GridLayout row="1" rows="auto,*,*" columns="*" :visibility="visibleTab('about') ? 'visible' : 'collapse'">
 				<GridLayout row="0" col="0" rows="*" columns="*">
-					<GridLayout verticalAlignment="middle" minHeight="30" rows="auto,auto" columns="*,*,*">
-						<Label row="0" col="0" verticalAlignment="middle" class="head-nav-left big-ion text-left ion active" :text="'ion-ios-information-circle' | fonticon" />
-						<Label row="0" col="1" verticalAlignment="middle" class="head-nav-centert text-center active"  style="font-size:24;" :text="actionbar_title" />
-						<Label row="0" col="2" verticalAlignment="middle" class="head-nav-right t-20 text-right active" :text="navigation_about" />
-						<label row="1" col="0" colSpan="3" class="hr-light m-x-20" />
-					</GridLayout>
 				</GridLayout>
 				<GridLayout row="1" col="0" rows="*" columns="*" verticalAlignment="middle">
 					<StackLayout>
@@ -35,13 +60,6 @@
 			</GridLayout>
 			<GridLayout row="1" rows="auto,auto,*" columns="*" :visibility="visibleTab('wallets') ? 'visible' : 'collapse'">
 				<StackLayout row="0" col="0">
-					<GridLayout verticalAlignment="middle" minHeight="30" rows="auto,auto" columns="*,*,*">
-						<Label row="0" col="0" verticalAlignment="middle" class="head-nav-left big-ion text-left ion active" :text="'ion-md-wallet' | fonticon" @tap="$showModal($routes.Wallets, {fullscreen: true})" />
-						<Label row="0" col="1" v-show="false" verticalAlignment="middle" class="head-nav-center t-16 text-center active" :text="'contents.noWallet'|L" />
-						<Label row="0" col="1" verticalAlignment="middle" class="head-nav-centert text-center active"  style="font-size:24;" :text="actionbar_title" />
-						<Label row="0" col="2" verticalAlignment="middle" class="head-nav-right t-20 text-right active" :text="navigation_wallets" />
-						<label row="1" col="0" colSpan="3" class="hr-light m-x-20" />
-					</GridLayout>
 				</StackLayout>
 				<StackLayout row="1" col="0" verticalAlignment="middle">
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
@@ -68,13 +86,6 @@
 			</GridLayout>
 			<GridLayout row="1" rows="auto,auto,*" columns="*" :visibility="visibleTab('actions') ? 'visible' : 'collapse'">
 				<StackLayout row="0" col="0">
-					<GridLayout verticalAlignment="middle" minHeight="30" rows="auto,auto" columns="*,*,*">
-						<Label row="0" col="0" verticalAlignment="middle" class="head-nav-left big-ion text-left ion active" :text="'ion-ios-build' | fonticon" />
-						<Label row="0" col="1" v-show="false" verticalAlignment="middle" class="head-nav-center t-16 text-center active" :text="'contents.coldWallet'|L" />
-						<Label row="0" col="1" verticalAlignment="middle" class="head-nav-centert text-center active"  style="font-size:24;" :text="actionbar_title" />
-						<Label row="0" col="2" verticalAlignment="middle" class="head-nav-right t-20 text-right active" :text="navigation_actions" />
-						<label row="1" col="0" colSpan="3" class="hr-light m-x-20" />
-					</GridLayout>
 				</StackLayout>
 				<StackLayout row="1" col="0" verticalAlignment="middle">
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
@@ -89,13 +100,6 @@
 			</GridLayout>
 			<GridLayout row="1" rows="auto,*" columns="*" :visibility="visibleTab('settings') ? 'visible' : 'collapse'">
 				<StackLayout row="0" col="0">
-					<GridLayout verticalAlignment="middle" minHeight="30" rows="auto,auto" columns="*,*,*">
-						<Label row="0" col="0" verticalAlignment="middle" class="head-nav-left big-ion text-left ion active" :text="'ion-ios-settings' | fonticon" />
-						<Label row="0" col="1" v-show="config_dirty" verticalAlignment="middle" :text="button_save_config" class="head-nav-center t-16 text-center active" @tap="saveConfig" />
-						<Label row="0" col="1" v-show="!config_dirty" verticalAlignment="middle" class="head-nav-centert text-center active"  style="font-size:24;" :text="actionbar_title" />
-						<Label row="0" col="2" verticalAlignment="middle" class="head-nav-right t-20 text-right active" :text="navigation_settings" />
-						<label row="1" col="0" colSpan="3" class="hr-light m-x-20" />
-					</GridLayout>
 				</StackLayout>
 				<StackLayout row="1" col="0" verticalAlignment="middle">
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
@@ -121,27 +125,15 @@
 					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto,auto">
-							<Label col="0"  verticalAlignment="middle" class="t-20" :text="'contents.idleTime'" />
-							<Label class="t-20 m-r-20" col="1" verticalAlignment="middle" :text="'contents.minutes'" />
-							<TextField class="password t-20 m-r-20" col="2" verticalAlignment="middle" v-model="idleTime" @blur="pageStatusBar"/>
-						</GridLayout>
-					</GridLayout>
-					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
-						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 ion" :text="'ion-ios-arrow-dropright' | fonticon" />
 						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
 							<Label col="0"  verticalAlignment="middle" class="t-20" :text="'contents.servers'" />
 							<Label class="m-r-20 m-y-10 ion" col="1" verticalAlignment="middle" :text="'ion-ios-arrow-forward'|fonticon" />
 						</GridLayout>
 					</GridLayout>
+					<GridLayout verticalAlignment="middle" rows="auto" columns="*">
+						<RadDataForm :source="settings" :metadata="settingsMetadata" />
+					</GridLayout>
 				</StackLayout>
-			</GridLayout>
-			<GridLayout row="2" :class="navigationClass('')" rows="auto,auto,auto" columns="*,*,*,*">
-				<label row="0" col="0" colSpan="4" class="hr-light"/>
-				<Label row="1" col="0" class="big-ion-nav text-center ion" :class="activeClass('settings')" :text="'ion-ios-settings' | fonticon" @tap="currentTab='settings'" />
-				<Label row="1" col="1" class="big-ion-nav text-center ion" :class="activeClass('wallets')" :text="'ion-md-wallet' | fonticon" @tap="currentTab='wallets'" />
-				<Label row="1" col="2" class="big-ion-nav text-center ion" :class="activeClass('actions')" :text="'ion-ios-build' | fonticon" @tap="currentTab='actions'" />
-				<Label row="1" col="3" class="big-ion-nav text-center ion" :class="activeClass('about')" :text="'ion-ios-information-circle' | fonticon" @tap="currentTab='about'" />
 			</GridLayout>
 		</GridLayout>
 	</Page>
@@ -178,7 +170,42 @@
 				config_dirty: false,
 				tabs: ['settings', 'wallets', 'actions', 'about'],
 				currentTab: 'about',
-				idleTime: 2
+				settings: {
+					truefalse: true,
+					idleTime: 2,
+					server: 'wss://c04.jingtum.com:5020'
+				},
+				settingsMetadata: {
+       				'isReadOnly': false,
+       				'commitMode': 'Immediate',
+       				'validationMode': 'Immediate',
+       				'propertyAnnotations':
+       				[
+       				  {
+       				    'name': 'truefalse',
+       				    'displayName': 'common.truefalse',
+       				    'index': 0,
+       				    'editor': 'Switch'
+       				  },
+       				  {
+       				    'name': 'idleTime',
+       				    'displayName': 'common.idleTime',
+       				    'index': 1,
+       				    'editor': 'Stepper',
+           				'editorParams': {
+           				  'minimum': 0,
+           				  'maximum': 10,
+           				  'step': 1
+           				}
+       				  },
+       				  {
+       				    'name': 'server',
+       				    'displayName': 'common.server',
+       				    'index': 3,
+       				    'editor': 'Text'
+       				  }
+       				],
+				}
 			}
 		},
 		created () {
@@ -317,8 +344,10 @@
 
 	// Custom styles
 	.page {
-		background: rgb(13,73,127);
-		background: linear-gradient(180deg, rgba(13,73,127,1) 0%, rgba(20,116,182,1) 12%, rgba(0,212,255,1) 82%);
+//		background: rgb(13,73,127);
+//		background: linear-gradient(180deg, rgba(13,73,127,1) 0%, rgba(20,116,182,1) 12%, rgba(0,212,255,1) 50%, rgba(20,116,182,1) 88%, rgba(13,73,127,1) 100%);
+background: rgb(38,112,179);
+background: linear-gradient(180deg, rgba(38,112,179,1) 0%, rgba(75,144,210,1) 10%, rgba(66,153,228,1) 50%, rgba(75,144,210,1) 90%, rgba(38,112,179,1) 100%);
 	}
 	.action-bar {
 		padding-top: 24;
@@ -353,5 +382,25 @@
 	}
 	.navigation {
 		margin-bottom: 36;
+	}
+	RadDataForm {
+	    background-color: transparent;
+		border-width:5;
+		border-color: transparent;
+	}
+	PropertyEditor {
+	    background-color: transparent;
+		separatorColor: transparent;
+	    color: purple;
+	}
+	DataFormEditorLabel {
+	    background-color: transparent;
+		separatorColor: transparent;
+	    color: blue;
+	}
+	DataFormEditorCore {
+	    background-color: transparent;
+		separatorColor: transparent;
+	    color: green;
 	}
 </style>

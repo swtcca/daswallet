@@ -7,12 +7,15 @@ Vue.filter("L", localize)
 import routes from '~/router'
 Vue.prototype.$routes = routes
 
+import RadDataFormPlugin from 'nativescript-ui-dataform/vue'
+Vue.use(RadDataFormPlugin)
 import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
 TNSFontIcon.paths = {
   ion: './assets/ionicons.css',
 };
 TNSFontIcon.loadCss();
 Vue.filter('fonticon', fonticon);
+
 
 import store from '~/store'
 import Home from "./components/Home";
@@ -27,10 +30,11 @@ connectivityModule.startMonitoring(v => store.commit('setConnectionType',v))
 Vue.config.silent = (TNS_ENV === 'production')
 //import './app.scss'
 
+store.commit('setAppUnlocked', true)
 new Vue({
 	store,
-	render: h => h('frame', [h(Login)]),
-	//render: h => h('frame', store.getters.app_unlocked ? [h(Home)] : [h(Login)]),
+	//render: h => h('frame', [h(Login)]),
+	render: h => h('frame', [h(Home)]),
 	created () {
 		console.log("app created")
 		console.log(store.getters.app_timestamp)

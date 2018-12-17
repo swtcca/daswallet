@@ -1,15 +1,8 @@
 <template>
 	<Frame>
 		<Page ref="walletpage" class="page"  actionBarHidden="true" backgroundSpanUnderStatusBar="true" @loaded="statusBarAndroid">
-	        <ActionBar class="action-bar" flat="true" android:backgroundColor="transparent" ios:backgroundColor="rgb(13,73,127)">
-	            <Label class="text-center action-bar-title" :text="'app.name'"></Label>
-				<ActionItem ios.position="right">
-	            	<Label class="ion" :text="'ion-ios-close-circle' | fonticon" @tap="cleanup; $modal.close"/>
-				</ActionItem>
-	        </ActionBar>
-	
 	        <GridLayout rows="auto,*,auto" columns="*">
-	           	<Label row="0" class="ion big-ion text-right" :text="'ion-ios-close-circle-outline' | fonticon" @tap="$modal.close"/>
+	           	<Label row="0" class="ion big-ion text-right" :text="'ion-ios-close-circle-outline' | fonticon" @tap="onClose" />
 				<StackLayout row="1" :visibility="!importing && !creating && $store.getters.swtcWallets.length > 0 ? 'visible' : 'collapse'" verticalAlignment="middle">
 					<ScrollView height="100%">
 						<ListView for="item in $store.getters.swtcWallets" class="list-group" @itemTap="onItemTap">
@@ -48,9 +41,9 @@
 					<TextField class="passwod m-x-20 p-10" secure="true" autocorrect="false" autocapitalizationType="none" maxLength="32" :hint="hint_encrypt_password_again"  @focus="message=''" @textChange="onSet" v-model="password2" />
 					<Button :isEnabled="enabled" verticalAlignment="middle" class="btn btn-primary" :text="button_encrypt_secret" @tap="onEncryptSecret('create')" />
 				</StackLayout>
-				<StackLayout row="2" :visibility="!creating || !importing ? 'visible' : 'collapse'">
-					<Button :visibility="!importing ? 'visible' : 'collapse'" class="btn btn-primary" verticalAlignment="middle" :text="button_import_wallet" @tap="onImportStart" />
-					<Button :visibility="!creating ? 'visible' : 'collapse'" class="btn btn-primary" verticalAlignment="middle" :text="button_create_wallet" @tap="onCreateStart" />
+				<StackLayout row="2" :visibility="!creating && !importing ? 'visible' : 'collapse'">
+					<Button class="btn btn-primary" verticalAlignment="middle" :text="button_import_wallet" @tap="onImportStart" />
+					<Button class="btn btn-primary" verticalAlignment="middle" :text="button_create_wallet" @tap="onCreateStart" />
 				</StackLayout>
 			</GridLayout>
 		</Page>
@@ -59,11 +52,12 @@
 
 <script>
 	import cryptoEncDec from '~/mixins/cryptoEncDec'
+	import fancyAlert from '~/mixins/fancyAlert'
 	const localize = require("nativescript-localize")
 	import statusBar from '~/mixins/statusBar'
 	import jingtumBaseLib from '~/mixins/jingtumBaseLib'
 	export default {
-		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar ],
+		mixins: [ jingtumBaseLib, cryptoEncDec, statusBar, fancyAlert ],
 		data () {
 			return {
 				button_import_wallet: '',
@@ -105,6 +99,12 @@
 			}
 		},
 		methods: {
+			onClose() {
+				//this.$store.commit('setCreating',false)
+				//this.$store.commit('setImporting',false)
+				this.cleanup()
+				this.$modal.close()
+			},
 			onItemTap(event) {
 				console.log("You tapped: " + this.$store.getters.swtcWallets[event.index].address)
 			},
@@ -125,13 +125,29 @@
 			onImportWallet () {
 				console.log("import Wallet")
 				let testWallet
-				try {
-					testWallet = new this.Wallet(this.wallet.secret)
-					this.wallet.address = testWallet.address()
-					//this.importing = false
-					this.settingpassword = true
-				} catch (e) {
+				if (this.wallet.secret.startsWith('s') && s.length > 10) {
+					try {
+						testWallet = new this.Wallet(this.wallet.secret)
+						this.wallet.address = testWallet.address()
+						//this.importing = false
+						this.settingpassword = true
+					} catch (e) {
+						console.log("secret invalid")
+						this.wallet.secret = ''
+						this.tnsFaAlert.showInfo(
+						  "注意",
+						  "密钥不正确",
+						  "知道"
+						)
+					}
+				} else {
 					console.log("secret invalid")
+					this.wallet.secret = ''
+					this.tnsFaAlert.showInfo(
+					  "注意",
+					  "密钥不正确",
+					  "知道"
+					)
 				}
 			},
 			onCreateWallet () {
