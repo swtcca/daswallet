@@ -40,7 +40,7 @@
 				</GridLayout>
 				<GridLayout row="1" col="0" rows="*" columns="*" verticalAlignment="middle">
 					<StackLayout>
-						<Label class="w-100 m-y-10 text-center t-20 active" textWrap="true" :text="'contents.secure'|L" />
+						<Label class="w-100 m-y-10 text-center active" textWrap="true" :text="'contents.secure'|L" />
 						<Label class="m-y-5 text-center t-16" textWrap="true" :text="'contents.deviceLock'|L" />
 						<Label class="m-y-5 text-center t-16" textWrap="true" :text="'contents.applicationLock'|L" />
 						<Label class="m-y-5 text-center t-16" textWrap="true" :text="'contents.localEncryption'|L" />
@@ -49,8 +49,9 @@
 				</GridLayout>
 				<GridLayout row="2" col="0" rows="*" columns="*" verticalAlignment="middle">
 					<StackLayout>
-						<Label class="w-100 m-y-10 text-center t-20 active" textWrap="true" :text="'contents.support'|L" />
+						<Label class="w-100 m-y-10 text-center active" textWrap="true" :text="'contents.support'|L" />
 						<Label class="m-y-5 text-center t-16" textWrap="true" :text="'contents.moac'|L" />
+						<Label class="m-y-5 text-center t-16" textWrap="true" :text="'contents.ether'|L" />
 						<Label class="m-y-5 text-center t-16" textWrap="true" :text="'contents.swtc'|L" />
 						<Label class="m-y-5 text-center t-16" textWrap="true" :text="'contents.xrp'|L" />
 						<Label class="m-y-5 text-center t-16" textWrap="true" :text="'contents.xlm'|L" />
@@ -63,15 +64,15 @@
 				<StackLayout row="1" col="0" verticalAlignment="middle">
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.importWallet'|L" @tap="$store.commit('setImporting',true); $store.commit('setImportingWatch',false); $store.commit('setCreating',false); $showModal($routes.Wallets, {fullscreen: true})" />
+						<Label col="1" verticalAlignment="middle" :text="'contents.importWallet'|L" @tap="$store.commit('setImporting',true); $store.commit('setImportingWatch',false); $store.commit('setCreating',false); $showModal($routes.Wallets, {fullscreen: true})" />
 					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.importWatchWallet'|L" @tap="$store.commit('setImportingWatch',true); $store.commit('setImporing',false); $store.commit('setCreating',false); $showModal($routes.Wallets, {fullscreen: true})" />
+						<Label col="1" verticalAlignment="middle" :text="'contents.importWatchWallet'|L" @tap="$store.commit('setImportingWatch',true); $store.commit('setImporing',false); $store.commit('setCreating',false); $showModal($routes.Wallets, {fullscreen: true})" />
 					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.createWallet'|L" @tap="$store.commit('setCreating',true); $store.commit('setImporing',false); $store.commit('setImportingWatch',false); $showModal($routes.Wallets, {fullscreen: true})" />
+						<Label col="1" verticalAlignment="middle" :text="'contents.createWallet'|L" @tap="$store.commit('setCreating',true); $store.commit('setImporing',false); $store.commit('setImportingWatch',false); $showModal($routes.Wallets, {fullscreen: true})" />
 					</GridLayout>
 				</StackLayout>
 				<StackLayout row="2" col="0" :visibility="$store.getters.swtcWallets.length > 0 ? 'visible' : 'collapse'" verticalAlignment="middle">
@@ -93,15 +94,15 @@
 				<StackLayout row="1" col="0" verticalAlignment="middle">
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.signTransaction'|L" @tap="onSignTransaction"/>
+						<Label col="1" verticalAlignment="middle" :text="'contents.signTransaction'|L" @tap="onSignTransaction"/>
 					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.createTransaction'|L" @tap="onCreateTransaction"/>
+						<Label col="1" verticalAlignment="middle" :text="'contents.createTransaction'|L" @tap="onCreateTransaction"/>
 					</GridLayout>
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 text-center ion" :text="'ion-ios-arrow-dropright' | fonticon" />
-						<Label col="1" verticalAlignment="middle" class="t-20" :text="'contents.transferAsset'|L" @tap="onTransferAsset"/>
+						<Label col="1" verticalAlignment="middle" :text="'contents.transferAsset'|L" @tap="onTransferAsset"/>
 					</GridLayout>
 				</StackLayout>
 			</GridLayout>
@@ -112,7 +113,7 @@
 					<GridLayout verticalAlignment="middle" rows="auto" columns="auto,*">
 						<Label col="0" verticalAlignment="middle" class="m-x-20 m-y-10 ion" :text="'ion-ios-arrow-dropright' | fonticon" />
 						<GridLayout col="1" verticalAlignment="middle" rows="auto" columns="*,auto">
-							<Label col="0" verticalAlignment="middle" class="t-20" :text="'contents.coldWallet'|L" />
+							<Label col="0" verticalAlignment="middle" :text="'contents.coldWallet'|L" />
 							<Switch class="switch" col="1" verticalAlignment="middle" v-model="cold_wallet" />
 						</GridLayout>
 					</GridLayout>
