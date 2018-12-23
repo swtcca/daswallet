@@ -278,8 +278,6 @@
 
 	// Custom styles
 	.page {
-		background: rgb(13,73,127);
-		background: linear-gradient(180deg, rgba(13,73,127,1) 0%, rgba(20,116,182,1) 12%, rgba(0,212,255,1) 82%);
 	}
 	.action-bar {
 		horizontal-align: center;

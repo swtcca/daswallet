@@ -7,7 +7,12 @@
 
 // Import common styles
 @import 'app-common';
-
+Page {
+	background: rgb(38,112,179);
+	background: linear-gradient(180deg, rgba(38,112,179,1) 0%, rgba(75,144,210,1) 10%, rgba(66,153,228,1) 50%, rgba(75,144,210,1) 90%, rgba(38,112,179,1) 100%);
+	font-size: 20;
+	color: black;
+}
 .fab-button {
 	height: 50;
 	width: 50; /// this is required on iOS - Android does not require width so you might need to adjust styles
