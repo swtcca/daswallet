@@ -1,6 +1,4 @@
-//require('nativescript-nodeify/nodeify')
 const Crypto = require("crypto-js")
-//
 export default {
 	data () {
 		return {

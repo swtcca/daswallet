@@ -1,5 +1,4 @@
-require('nativescript-nodeify/nodeify')
-const JLib = require('jingtum-base-lib')
+const JLib = require('swtc-wallet')
 
 export default {
 	data () {
