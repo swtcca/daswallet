@@ -1,3 +1,12 @@
+# 钱包和离线签名
+## nativescript + vue
+## plugins
+## swtclib
+## mixins
+## vuex
+
+----------------------------------------
+
 # NativeScript Vue Blank Template
 App templates help you jump start your native cross-platform apps with built-in UI elements and best practices. Save time writing boilerplate code over and over again when you create new apps.
 
