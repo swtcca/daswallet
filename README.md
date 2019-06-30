@@ -2,9 +2,9 @@
 ## 优势
 1. js开发，原生性能
 2. vuejs生态
-3. swtc-xxx开发库
+3. swtc-xxx开发库 (目前是swtc-wallet, 可以是swtc-transaction, swtc-api, swtc-lib, swtc-x-lib)
 4. 可以用websocket/jingtum-api/jcc-rpc
-5. 同时支持两套系统
+5. 同时支持android/ios系统
 
 ### 参考 DAS井通(https://github.com/swtc-ca/dasswtc), 基于jingtum-lib v1.4
 
@@ -21,7 +21,7 @@
 4. npm install
 5. 手工清理
 > `rm -fr node_modules/nativescript-zxing/platforms/android`
-6. 连接设备，运行
+6. 启动模拟器或者连接设备，运行
 > `npm run ios`
 
 > `npm run android`
