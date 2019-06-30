@@ -6,11 +6,12 @@
 4. 可以用websocket/jingtum-api/jcc-rpc
 5. 同时支持两套系统
 
-## nativescript + vue
-## plugins
-## swtclib
-## mixins
-## vuex
+> ## nativescript + vue
+> ## plugins
+> ## swtclib
+> ## mixins
+> ## vuex
+> ## i18n
 ## 步骤
 1. [安装nativescript](https://www.nativescript.org)
 2. git fork
