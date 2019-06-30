@@ -19,8 +19,9 @@
 5. 手工清理
 > `rm -fr node_modules/nativescript-zxing/platforms/android`
 6. 连接设备，运行
-> npm run ios
-> npm run android
+> `npm run ios`
+
+> `npm run android`
 
 ## 截图
 <img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-wallet.png" alt="android" />
