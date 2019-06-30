@@ -1,9 +1,35 @@
 # 钱包和离线签名
+## 优势
+1. js开发，原生性能
+2. vuejs生态
+3. swtc-xxx开发库
+4. 可以用websocket/jingtum-api/jcc-rpc
+5. 同时支持两套系统
+
 ## nativescript + vue
 ## plugins
 ## swtclib
 ## mixins
 ## vuex
+## 步骤
+1. [安装nativescript](https://www.nativescript.org)
+2. git fork
+3. git clone
+4. npm install
+5. 手工清理
+> `rm -fr node_modules/nativescript-zxing/platforms/android`
+6. 连接设备，运行
+> npm run ios
+> npm run android
+
+## 截图
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-wallet.png" alt="android" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-coldwallet.png" alt="android" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-offsign.png" alt="android" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-offlinesign.png" alt="android" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/ios-wallet.png" alt="ios" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/ios-coldwallet.png" alt="ios" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/ios-offsign.png" alt="ios" />
 
 ----------------------------------------
 
