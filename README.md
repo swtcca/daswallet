@@ -6,6 +6,8 @@
 4. 可以用websocket/jingtum-api/jcc-rpc
 5. 同时支持两套系统
 
+### 参考 DAS井通(https://github.com/swtc-ca/dasswtc), 基于jingtum-lib v1.4
+
 > ## nativescript + vue
 > ## plugins
 > ## swtclib
