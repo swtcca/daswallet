@@ -24,13 +24,13 @@
 > `npm run android`
 
 ## 截图
-<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-wallet.png" alt="android" />
-<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-coldwallet.png" alt="android" />
-<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-offsign.png" alt="android" />
-<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-offlinesign.png" alt="android" />
-<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/ios-wallet.png" alt="ios" />
-<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/ios-coldwallet.png" alt="ios" />
-<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/ios-offsign.png" alt="ios" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-wallet.png" width="360" alt="android" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-coldwallet.png" width="360" alt="android" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-offsign.png" width="360" alt="android" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-offlinesign.png" width="360" alt="android" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/ios-wallet.png" width="360" alt="ios" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/ios-coldwallet.png" width="360" alt="ios" />
+<img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/ios-offsign.png" width="360" alt="ios" />
 
 ----------------------------------------
 
