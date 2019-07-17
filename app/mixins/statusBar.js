@@ -30,17 +30,19 @@ export default {
               | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             )
             let statusHeight, navigationHeight 
-            let resourceId = application.android.currentContext.getResources().getIdentifier('status_bar_height', 'dimen', 'android');
+			console.log(application.android.context)
+			console.log(application.android.context.getResources)
+            let resourceId = application.android.context.getResources().getIdentifier('status_bar_height', 'dimen', 'android');
             if (resourceId) {
-              statusHeight = application.android.currentContext.getResources().getDimensionPixelSize(resourceId);
+              statusHeight = application.android.context.getResources().getDimensionPixelSize(resourceId);
             }
             if (statusHeight) {
               this.statusBarHeight = statusHeight
               console.log(`statusbar height ${this.statusBarHeight}`)
             }
-            resourceId = application.android.currentContext.getResources().getIdentifier('navigation_bar_height', 'dimen', 'android');
+            resourceId = application.android.context.getResources().getIdentifier('navigation_bar_height', 'dimen', 'android');
             if (resourceId) {
-              navigationHeight = application.android.currentContext.getResources().getDimensionPixelSize(resourceId);
+              navigationHeight = application.android.context.getResources().getDimensionPixelSize(resourceId);
             }
             if (navigationHeight) {
               this.navigationBarHeight = navigationHeight
