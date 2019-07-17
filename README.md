@@ -22,9 +22,9 @@
 5. 手工清理
 > `rm -fr node_modules/nativescript-zxing/platforms/android`
 6. 启动模拟器或者连接设备，运行
-> `npm run ios`
+> `tns run ios`
 
-> `npm run android`
+> `tns run android`
 
 ## 截图
 <img align="center" src="https://raw.githubusercontent.com/swtcca/swtc-app-examples/master/images/android-wallet.png" width="360" alt="android" />
